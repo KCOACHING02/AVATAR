@@ -33,7 +33,7 @@
         }
 
         .step { display: none; }
-        .active { display: block; }
+        .step.active { display: block; }
 
         h1 { color: var(--primary); font-size: 1.4rem; margin-bottom: 10px; text-transform: uppercase; }
         h2 { font-size: 1.1rem; margin-bottom: 20px; color: var(--text); }
@@ -71,7 +71,7 @@
             font-size: 1rem;
         }
 
-        #loader { text-align: center; padding: 50px 0; }
+        #loader-step { text-align: center; padding: 50px 0; }
         .spinner {
             width: 40px; height: 40px;
             border: 4px solid #f3f3f3;
@@ -100,7 +100,7 @@
     
     <div id="step1" class="step active">
         <h1>ÉTAPE 1 — Qui est ton client idéal ?</h1>
-        <p class="subtitle">Coche celui qui te parle le plus (tu pourras ajuster plus tard) :</p>
+        <p class="subtitle">Coche celui qui te parle le plus :</p>
         <div class="option-list">
             <div class="option-card" onclick="setVal('avatar', this, 'Le salarié frustré')">Le salarié frustré</div>
             <div class="option-card" onclick="setVal('avatar', this, 'Le salarié épuisé')">Le salarié épuisé</div>
@@ -129,7 +129,7 @@
     </div>
 
     <div id="step3" class="step">
-        <h1>ÉTAPE 2 — Comprends sa réalité</h1>
+        <h1>ÉTAPE 2</h1>
         <h2>2. Son problème principal :</h2>
         <div class="option-list">
             <div class="option-card" onclick="setVal('q2', this, 'Il n’a pas assez d’argent en fin de mois')">Il n’a pas assez d’argent en fin de mois</div>
@@ -148,7 +148,7 @@
     </div>
 
     <div id="step4" class="step">
-        <h1>ÉTAPE 2 — Comprends sa réalité</h1>
+        <h1>ÉTAPE 2</h1>
         <h2>3. Ce qu’il veut vraiment :</h2>
         <div class="option-list">
             <div class="option-card" onclick="setVal('q3', this, 'Gagner 500-1000€/mois en plus pour arrêter de compter')">Gagner 500-1000€/mois en plus pour arrêter de compter</div>
@@ -170,7 +170,7 @@
     </div>
 
     <div id="step5" class="step">
-        <h1>ÉTAPE 2 — Comprends sa réalité</h1>
+        <h1>ÉTAPE 2</h1>
         <h2>4. Ce qui le bloque pour se lancer :</h2>
         <div class="option-list">
             <div class="option-card" onclick="setVal('q4', this, 'Il ne sait pas par où commencer, trop d’infos partout')">Il ne sait pas par où commencer, trop d’infos partout</div>
@@ -192,7 +192,7 @@
     </div>
 
     <div id="step6" class="step">
-        <h1>ÉTAPE 2 — Comprends sa réalité</h1>
+        <h1>ÉTAPE 2</h1>
         <h2>5. Pourquoi il achèterait cette formation MRR :</h2>
         <div class="option-list">
             <div class="option-card" onclick="setVal('q5', this, 'Parce que c’est clé en main, pas besoin de tout créer')">Parce que c’est clé en main, pas besoin de tout créer</div>
@@ -200,7 +200,7 @@
             <div class="option-card" onclick="setVal('q5', this, 'Parce que tu vas l’accompagner pas à pas')">Parce que tu vas l’accompagner pas à pas</div>
             <div class="option-card" onclick="setVal('q5', this, 'Parce qu’il sent que c’est LA solution qu’il cherchait')">Parce qu’il sent que c’est LA solution qu’il cherchait</div>
             <div class="option-card" onclick="setVal('q5', this, 'Parce qu’il n’en peut plus de sa situation actuelle')">Parce qu’il n’en peut plus de sa situation actuelle</div>
-            <div class="option-card" onclick="setVal('q5', this, 'Parce que le produit est déjà prêt, il n’a “qu’à” le vendre')">Parce que le produit est déjà prêt, il n’a “qu’à” le vendre</div>
+            <div class="option-card" onclick="setVal('q5', this, 'Parce que le produit est déjà prêt, il n’a qu’à le vendre')">Parce que le produit est déjà prêt, il n’a qu’à le vendre</div>
             <div class="option-card" onclick="setVal('q5', this, 'Parce qu’il peut commencer rapidement sans attendre des mois')">Parce qu’il peut commencer rapidement sans attendre des mois</div>
             <div class="option-card" onclick="setVal('q5', this, 'Parce que d’autres débutants y arrivent, pourquoi pas lui ?')">Parce que d’autres débutants y arrivent, pourquoi pas lui ?</div>
             <div class="option-card" onclick="setVal('q5', this, 'Parce qu’il a besoin d’un système simple et duplicable')">Parce qu’il a besoin d’un système simple et duplicable</div>
@@ -213,10 +213,10 @@
         <button class="btn-nav" onclick="runCalc()">Générer ma fiche client →</button>
     </div>
 
-    <div id="loader" class="step">
+    <div id="loader-step" class="step">
         <div class="spinner"></div>
         <h2 id="load-msg">Analyse des données en cours...</h2>
-        <p>Traitement algorithmique du profil...</p>
+        <p>Traitement de votre profil idéal...</p>
     </div>
 
     <div id="step-result" class="step">
@@ -230,30 +230,26 @@
 </div>
 
 <script>
-    let data = { avatar: "", q1: "", q2: "", q3: "", q4: "", q5: "" };
+    let responses = { avatar: "", q1: "", q2: "", q3: "", q4: "", q5: "" };
 
     function setVal(cat, el, val) {
         el.parentElement.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
         el.classList.add('selected');
-        data[cat] = val;
+        responses[cat] = val;
     }
 
     function next(n) {
-        // Validation simple
-        let current = n - 1;
-        if (current >= 1 && current <= 6) {
-            let key = current === 1 ? 'avatar' : 'q' + (current - 1);
-            // On laisse passer même si vide pour l'exemple, mais on pourrait forcer ici
-        }
-        
         document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
         document.getElementById('step' + n).classList.add('active');
         window.scrollTo(0,0);
     }
 
     function runCalc() {
-        next('-loader');
-        const msgs = ["Segmentation des besoins...", "Analyse des freins...", "Configuration du persona...", "Finalisation..."];
+        // Cache toutes les étapes et affiche le loader
+        document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
+        document.getElementById('loader-step').classList.add('active');
+        
+        const msgs = ["Extraction des besoins...", "Analyse des freins...", "Ciblage stratégique...", "Finalisation..."];
         let i = 0;
         const itv = setInterval(() => {
             if(i < msgs.length) {
@@ -267,18 +263,18 @@
     }
 
     function showFinal() {
-        document.getElementById('loader').classList.remove('active');
+        document.getElementById('loader-step').classList.remove('active');
         document.getElementById('step-result').classList.add('active');
         
         document.getElementById('result-box').innerHTML = `
-            <div class="result-item"><b>Avatar :</b> ${data.avatar}</div>
-            <div class="result-item"><b>Situation :</b> ${data.q1}</div>
-            <div class="result-item"><b>Problème :</b> ${data.q2}</div>
-            <div class="result-item"><b>Désir :</b> ${data.q3}</div>
-            <div class="result-item"><b>Blocage :</b> ${data.q4}</div>
-            <div class="result-item"><b>Pourquoi achète-t-il :</b> ${data.q5}</div>
+            <div class="result-item"><b>Avatar sélectionné :</b> ${responses.avatar || "Non spécifié"}</div>
+            <div class="result-item"><b>Situation actuelle :</b> ${responses.q1 || "Non spécifié"}</div>
+            <div class="result-item"><b>Son problème :</b> ${responses.q2 || "Non spécifié"}</div>
+            <div class="result-item"><b>Son désir profond :</b> ${responses.q3 || "Non spécifié"}</div>
+            <div class="result-item"><b>Ses blocages :</b> ${responses.q4 || "Non spécifié"}</div>
+            <div class="result-item"><b>Pourquoi achète-t-il MRR :</b> ${responses.q5 || "Non spécifié"}</div>
             <div style="margin-top:20px; padding:15px; background:#fff; border-radius:8px; border:1px dashed var(--primary); font-style:italic;">
-                "Mon client idéal est un(e) <b>${data.avatar}</b>. Aujourd'hui, <b>${data.q1}</b>. Son problème majeur est qu'<b>${data.q2.toLowerCase()}</b>. Son plus grand souhait est de <b>${data.q3.toLowerCase()}</b>, mais il/elle est freiné(e) car <b>${data.q4.toLowerCase()}</b>. Il/elle rejoindra la formation MRR <b>${data.q5.toLowerCase()}</b>."
+                "Mon client idéal est : <b>${responses.avatar || "..."}</b>. Sa réalité est qu'aujourd'hui <b>${(responses.q1 || "...").toLowerCase()}</b>. Son problème majeur est qu'<b>${(responses.q2 || "...").toLowerCase()}</b>. Ce qu'il souhaite vraiment, c'est <b>${(responses.q3 || "...").toLowerCase()}</b>, mais il est freiné car <b>${(responses.q4 || "...").toLowerCase()}</b>. Il choisira cette formation <b>${(responses.q5 || "...").toLowerCase()}</b>."
             </div>
         `;
     }
