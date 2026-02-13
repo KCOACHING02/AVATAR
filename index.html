@@ -23,7 +23,7 @@
 
         .container {
             background: white;
-            max-width: 700px;
+            max-width: 800px;
             width: 100%;
             padding: 40px;
             border-radius: 16px;
@@ -33,53 +33,56 @@
         .step { display: none; }
         .active { display: block; }
 
-        h1 { color: var(--primary); font-size: 1.5rem; margin-bottom: 20px; border-bottom: 2px solid #f1f5f9; padding-bottom: 10px; }
-        h2 { font-size: 1.1rem; margin-top: 20px; }
+        h1 { color: var(--primary); font-size: 1.6rem; margin-bottom: 20px; text-align: center; }
+        h2 { font-size: 1.1rem; margin-top: 25px; color: var(--secondary); border-left: 4px solid var(--primary); padding-left: 10px; }
+
+        .grid-options {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(230px, 1fr));
+            gap: 12px;
+            margin-top: 15px;
+        }
 
         .option-card {
-            border: 2px solid #e2e8f0;
+            border: 1px solid #e2e8f0;
             padding: 15px;
-            margin-bottom: 10px;
             border-radius: 10px;
             cursor: pointer;
-            transition: all 0.3s;
+            transition: all 0.2s ease;
+            font-size: 0.9rem;
+            background: #fff;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            text-align: center;
+            min-height: 60px;
         }
 
-        .option-card:hover { border-color: var(--primary); background: #f5f3ff; }
-        .option-card.selected { border-color: var(--primary); background: #eef2ff; }
+        .option-card:hover { border-color: var(--primary); background: #f5f3ff; transform: translateY(-2px); }
+        .option-card.selected { border-color: var(--primary); background: #eef2ff; box-shadow: 0 0 0 2px var(--primary); font-weight: 600; }
 
-        textarea {
-            width: 100%;
-            height: 80px;
-            padding: 12px;
-            border: 1px solid #cbd5e1;
-            border-radius: 8px;
-            margin-top: 10px;
-            font-family: inherit;
-            resize: none;
-        }
-
-        .btn {
+        .btn-main {
             background: var(--primary);
             color: white;
             border: none;
-            padding: 15px 30px;
-            border-radius: 8px;
+            padding: 18px 30px;
+            border-radius: 10px;
             font-weight: bold;
             cursor: pointer;
             width: 100%;
-            margin-top: 20px;
-            font-size: 1rem;
+            margin-top: 40px;
+            font-size: 1.1rem;
+            transition: 0.3s;
         }
 
-        .btn:hover { background: var(--secondary); }
+        .btn-main:hover { background: var(--secondary); box-shadow: 0 5px 15px rgba(99, 102, 241, 0.4); }
 
-        /* Séquence de calcul */
-        #loading-area { text-align: center; padding: 40px 0; }
+        /* Loader */
+        #loading-area { text-align: center; padding: 60px 0; }
         .spinner {
             border: 4px solid rgba(0,0,0,0.1);
-            width: 40px;
-            height: 40px;
+            width: 50px;
+            height: 50px;
             border-radius: 50%;
             border-left-color: var(--primary);
             animation: spin 1s linear infinite;
@@ -89,13 +92,15 @@
 
         #result-box {
             background: #f1f5f9;
-            padding: 25px;
+            padding: 30px;
             border-radius: 12px;
-            border-left: 5px solid var(--primary);
-            font-style: italic;
-            font-size: 1.1rem;
-            line-height: 1.6;
+            border: 2px dashed var(--primary);
+            font-size: 1.15rem;
+            line-height: 1.7;
+            margin-top: 20px;
         }
+
+        b { color: var(--primary); }
     </style>
 </head>
 <body>
@@ -104,87 +109,131 @@
     
     <div id="step1" class="step active">
         <h1>ÉTAPE 1 — Qui est ton client idéal ?</h1>
-        <p>Coche celui qui te parle le plus :</p>
-        <div id="avatar-list">
-            <div class="option-card" onclick="selectAvatar(this, 'Le salarié frustré')"><b>Le salarié frustré</b> : Veut un complément de revenu, rêve de quitter son job</div>
-            <div class="option-card" onclick="selectAvatar(this, 'Le salarié épuisé')"><b>Le salarié épuisé</b> : Cherche une solution pour travailler à son rythme</div>
-            <div class="option-card" onclick="selectAvatar(this, 'La maman au foyer')"><b>La maman au foyer</b> : Veut gagner de l'argent depuis chez elle</div>
-            <div class="option-card" onclick="selectAvatar(this, 'Le demandeur d’emploi')"><b>Le demandeur d’emploi</b> : Cherche une alternative au salariat</div>
-            <div class="option-card" onclick="selectAvatar(this, 'L’étudiant')"><b>L'étudiant / Jeune diplômé</b> : Veut se créer des revenus sans patron</div>
-            <div class="option-card" onclick="selectAvatar(this, 'Le futur entrepreneur')"><b>L'aspirant entrepreneur</b> : Cherche un produit clé en main</div>
-            <div class="option-card" onclick="selectAvatar(this, 'L’entrepreneur')"><b>L'entrepreneur</b> : Veut automatiser une source complémentaire</div>
+        <div class="grid-options">
+            <div class="option-card" onclick="selectItem('avatar', this, 'Le salarié frustré')"><b>Salarié frustré</b><br>(Veut quitter son job)</div>
+            <div class="option-card" onclick="selectItem('avatar', this, 'Le salarié épuisé')"><b>Salarié épuisé</b><br>(Veut son propre rythme)</div>
+            <div class="option-card" onclick="selectItem('avatar', this, 'La maman au foyer')"><b>Maman au foyer</b><br>(Gagner depuis chez elle)</div>
+            <div class="option-card" onclick="selectItem('avatar', this, 'Le demandeur d’emploi')"><b>Demandeur d’emploi</b><br>(Alternative au salariat)</div>
+            <div class="option-card" onclick="selectItem('avatar', this, 'L’étudiant')"><b>Étudiant</b><br>(Revenus sans patron)</div>
+            <div class="option-card" onclick="selectItem('avatar', this, 'Le futur entrepreneur')"><b>Futur entrepreneur</b><br>(Cherche produit clé en main)</div>
+            <div class="option-card" onclick="selectItem('avatar', this, 'L’entrepreneur')"><b>Entrepreneur</b><br>(Revenu automatisé)</div>
         </div>
-        <button class="btn" onclick="goToStep(2)">Continuer vers l'analyse →</button>
+        <button class="btn-main" onclick="goToStep(2)">Passer à sa réalité →</button>
     </div>
 
     <div id="step2" class="step">
         <h1>ÉTAPE 2 — Comprends sa réalité</h1>
-        
+
         <h2>1. Où il en est aujourd'hui :</h2>
-        <textarea id="q1" placeholder="Ex: Elle est maman au foyer, dépend financièrement de son conjoint..."></textarea>
+        <div class="grid-options">
+            <div class="option-card" onclick="selectItem('q1', this, 'a un job alimentaire (1500€/mois) et n\'est pas épanoui')">Job alimentaire (1500€)</div>
+            <div class="option-card" onclick="selectItem('q1', this, 'est maman au foyer et dépend financièrement de son conjoint')">Maman / Dépendance financière</div>
+            <div class="option-card" onclick="selectItem('q1', this, 'est au chômage depuis 6 mois (1200€ d\'allocs)')">Chômage (1200€)</div>
+            <div class="option-card" onclick="selectItem('q1', this, 'travaille en grande surface avec des horaires décalés')">Grande surface / Épuisement</div>
+            <div class="option-card" onclick="selectItem('q1', this, 'est étudiant et fait des petits boulots pour le loyer')">Étudiant / Petits boulots</div>
+            <div class="option-card" onclick="selectItem('q1', this, 'a un CDI mais se sent prisonnier du métro-boulot-dodo')">CDI / Prisonnier routine</div>
+            <div class="option-card" onclick="selectItem('q1', this, 'est auto-entrepreneur mais galère à trouver des clients')">Auto-entrepreneur en galère</div>
+        </div>
 
         <h2>2. Son problème principal :</h2>
-        <textarea id="q2" placeholder="Ex: Il ne peut pas se faire plaisir ni partir en vacances..."></textarea>
+        <div class="grid-options">
+            <div class="option-card" onclick="selectItem('q2', this, 'le manque d\'argent en fin de mois')">Manque d'argent</div>
+            <div class="option-card" onclick="selectItem('q2', this, 'le stress à chaque facture qui tombe')">Stress des factures</div>
+            <div class="option-card" onclick="selectItem('q2', this, 'le manque de temps pour soi et sa famille')">Manque de temps</div>
+            <div class="option-card" onclick="selectItem('q2', this, 'l\'impossibilité de partir en vacances')">Pas de vacances</div>
+            <div class="option-card" onclick="selectItem('q2', this, 'le fait de ne pas voir ses enfants grandir')">Ne voit pas ses enfants</div>
+            <div class="option-card" onclick="selectItem('q2', this, 'un burn-out imminent')">Plein Burn-out</div>
+            <div class="option-card" onclick="selectItem('q2', this, 'la peur de se lancer seul')">Peur de se lancer</div>
+        </div>
 
         <h2>3. Ce qu'il veut vraiment :</h2>
-        <textarea id="q3" placeholder="Ex: Gagner 500-1000€/mois pour arrêter de compter..."></textarea>
+        <div class="grid-options">
+            <div class="option-card" onclick="selectItem('q3', this, 'gagner 500 à 1000€ de plus par mois')">Gagner 500-1000€/mois</div>
+            <div class="option-card" onclick="selectItem('q3', this, 'devenir son propre patron')">Être son propre patron</div>
+            <div class="option-card" onclick="selectItem('q3', this, 'maîtriser les réseaux sociaux')">Maîtriser les réseaux</div>
+            <div class="option-card" onclick="selectItem('q3', this, 'voyager sans poser de congés')">Voyager librement</div>
+            <div class="option-card" onclick="selectItem('q3', this, 'gâter ses enfants sans culpabiliser')">Gâter ses enfants</div>
+            <div class="option-card" onclick="selectItem('q3', this, 'travailler d\'où il veut')">Travailler partout (plage, café)</div>
+            <div class="option-card" onclick="selectItem('q3', this, 'construire quelque chose qui lui appartient')">Bâtir son empire</div>
+        </div>
 
-        <h2>4. Ce qui le bloque pour se lancer :</h2>
-        <textarea id="q4" placeholder="Ex: Il ne sait pas par où commencer, peur de l'arnaque..."></textarea>
+        <h2>4. Ce qui le bloque :</h2>
+        <div class="grid-options">
+            <div class="option-card" onclick="selectItem('q4', this, 'ne sait pas par où commencer')">Perdu dans les infos</div>
+            <div class="option-card" onclick="selectItem('q4', this, 'a peur des arnaques')">Peur des arnaques</div>
+            <div class="option-card" onclick="selectItem('q4', this, 'n\'a pas de compétences techniques')">Zéro technique</div>
+            <div class="option-card" onclick="selectItem('q4', this, 'a peur du jugement des autres')">Peur du regard des autres</div>
+            <div class="option-card" onclick="selectItem('q4', this, 'manque de confiance en lui')">Manque de confiance</div>
+            <div class="option-card" onclick="selectItem('q4', this, 'n\'a pas de temps avec son job actuel')">Pas de temps</div>
+            <div class="option-card" onclick="selectItem('q4', this, 'ne sait pas créer de contenu vidéo')">Peur de la vidéo</div>
+        </div>
 
-        <h2>5. Pourquoi il achèterait cette formation MRR :</h2>
-        <textarea id="q5" placeholder="Ex: Parce que c’est clé en main, pas besoin de tout créer..."></textarea>
+        <h2>5. Pourquoi il achèterait MRR :</h2>
+        <div class="grid-options">
+            <div class="option-card" onclick="selectItem('q5', this, 'c’est une solution clé en main')">Solution Clé en main</div>
+            <div class="option-card" onclick="selectItem('q5', this, 'le produit est déjà prêt à être vendu')">Produit déjà prêt</div>
+            <div class="option-card" onclick="selectItem('q5', this, 'il a besoin d\'un système simple et duplicable')">Système simple</div>
+            <div class="option-card" onclick="selectItem('q5', this, 'il peut le faire à son rythme le soir')">À son rythme (soir)</div>
+            <div class="option-card" onclick="selectItem('q5', this, 'pas besoin de se montrer sur internet')">Pas besoin d'être visible</div>
+            <div class="option-card" onclick="selectItem('q5', this, 'il veut du concret, pas de la théorie')">Besoin de concret</div>
+            <div class="option-card" onclick="selectItem('q5', this, 'il veut enfin passer à l\'action')">Enfin agir</div>
+        </div>
 
-        <button class="btn" onclick="startCalculation()">Définir mon Client Idéal ✨</button>
+        <button class="btn-main" onclick="startCalculation()">Lancer l'analyse complexe ✨</button>
     </div>
 
     <div id="step-loading" class="step">
         <div id="loading-area">
             <div class="spinner"></div>
-            <h2 id="loading-text">Analyse des données psychographiques...</h2>
-            <p style="color: #64748b; font-size: 0.9rem;">Algorithme de ciblage MRR en cours d'exécution.</p>
+            <h2 id="loading-text">Analyse des données...</h2>
+            <p style="color: #64748b;">Traitement des variables psychologiques en cours.</p>
         </div>
     </div>
 
     <div id="step3" class="step">
-        <h1>ÉTAPE 3 — La fiche d’identité de ton client idéal</h1>
+        <h1>TA FICHE : CLIENT IDÉAL</h1>
         <div id="result-box"></div>
-        
-        <div style="margin-top: 30px; text-align: center;">
-            <p>✅ <b>BRAVO !</b> Tu connais maintenant ton client idéal sur le bout des doigts.</p>
-            <p style="font-size: 0.85rem;">Imprime cette fiche ou garde-la dans ton téléphone.</p>
-            <button class="btn" onclick="window.print()" style="background: #1e293b;">Imprimer la fiche</button>
-        </div>
+        <button class="btn-main" onclick="window.print()" style="background: #1e293b;">Imprimer ou Sauvegarder en PDF</button>
+        <p style="text-align:center; margin-top:20px; cursor:pointer; text-decoration:underline;" onclick="location.reload()">Recommencer le questionnaire</p>
     </div>
-
 </div>
 
 <script>
-    let userData = { avatar: "" };
+    let selections = { avatar: "", q1: "", q2: "", q3: "", q4: "", q5: "" };
 
-    function selectAvatar(element, name) {
-        document.querySelectorAll('.option-card').forEach(el => el.classList.remove('selected'));
+    function selectItem(category, element, value) {
+        // Désélectionner les autres du même groupe
+        const parent = element.parentElement;
+        parent.querySelectorAll('.option-card').forEach(el => el.classList.remove('selected'));
+        
+        // Sélectionner l'actuel
         element.classList.add('selected');
-        userData.avatar = name;
+        selections[category] = value;
     }
 
     function goToStep(num) {
-        if (num === 2 && !userData.avatar) {
-            alert("Veuillez sélectionner un profil avant de continuer.");
+        if (num === 2 && !selections.avatar) {
+            alert("Veuillez choisir un profil à l'étape 1.");
             return;
         }
         document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
         document.getElementById('step' + num).classList.add('active');
+        window.scrollTo(0,0);
     }
 
     function startCalculation() {
+        if (!selections.q1 || !selections.q2 || !selections.q3 || !selections.q4 || !selections.q5) {
+            alert("Merci de répondre à toutes les questions pour une analyse précise.");
+            return;
+        }
+        
         goToStep('-loading');
         const phrases = [
-            "Analyse des vecteurs de douleur...",
-            "Calcul de la courbe de désirabilité...",
-            "Matching des objections courantes...",
-            "Génération de la fiche de synthèse...",
-            "Finalisation du profil type..."
+            "Extraction des points de douleur...",
+            "Calcul de la charge émotionnelle...",
+            "Analyse des barrières psychologiques...",
+            "Génération du persona idéal...",
+            "Finalisation de la stratégie MRR..."
         ];
         
         let i = 0;
@@ -200,17 +249,11 @@
     }
 
     function showFinalResult() {
-        const q1 = document.getElementById('q1').value || "...";
-        const q2 = document.getElementById('q2').value || "...";
-        const q3 = document.getElementById('q3').value || "...";
-        const q4 = document.getElementById('q4').value || "...";
-        const q5 = document.getElementById('q5').value || "...";
-
-        const text = `« Mon client idéal, c’est <b>${userData.avatar}</b>. 
-        Aujourd'hui, sa situation est la suivante : <b>${q1}</b>. 
-        Son problème majeur est <b>${q2}</b>. 
-        Ce qu'il cherche vraiment, c'est <b>${q3}</b>, mais il est freiné par <b>${q4}</b>. 
-        Il achètera ma formation MRR car <b>${q5}</b>. »`;
+        const text = `« Mon client idéal, c’est <b>${selections.avatar}</b>. 
+        Aujourd'hui, il/elle <b>${selections.q1}</b>. 
+        Son problème principal est <b>${selections.q2}</b>. 
+        Ce qu'il/elle veut vraiment, c'est <b>${selections.q3}</b>, mais ce qui le/la bloque, c'est qu'il/elle <b>${selections.q4}</b>. 
+        Il/elle achètera cette formation MRR car <b>${selections.q5}</b>. »`;
 
         document.getElementById('result-box').innerHTML = text;
         goToStep(3);
