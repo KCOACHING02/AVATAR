@@ -3,143 +3,296 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diagnostic Expert Persona - Stratégie 2026</title>
+    <title>Stratégie Réseaux Sociaux - Questionnaire</title>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
     <style>
-        :root { --primary: #1a1a2e; --accent: #e94560; --bg: #f0f2f5; --text: #333; }
-        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); padding: 40px 20px; }
-        .container { max-width: 900px; margin: auto; background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
-        h1 { text-align: center; color: var(--primary); font-size: 2.2rem; margin-bottom: 10px; }
-        p.subtitle { text-align: center; color: #666; margin-bottom: 40px; }
-        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
-        .section { margin-bottom: 35px; border-bottom: 1px solid #eee; padding-bottom: 20px; }
-        h2 { color: var(--accent); font-size: 1.2rem; text-transform: uppercase; letter-spacing: 1px; }
-        label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.9rem; }
-        input, textarea, select { width: 100%; padding: 12px; border: 2px solid #e1e1e1; border-radius: 8px; transition: 0.3s; margin-bottom: 15px; font-family: inherit; }
-        input:focus, textarea:focus { border-color: var(--accent); outline: none; }
-        button { width: 100%; padding: 20px; background: var(--primary); color: white; border: none; border-radius: 10px; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: 0.3s; }
-        button:hover { background: var(--accent); transform: translateY(-2px); }
-        
-        /* Affichage de la Fiche Diagnostic */
-        #diagnosticCard { display: none; }
-        .identity-header { background: var(--primary); color: white; padding: 30px; border-radius: 15px; text-align: center; margin-bottom: 30px; }
-        .analysis-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .analysis-box { background: #fff; border: 1px solid #ddd; padding: 20px; border-radius: 10px; }
-        .analysis-box h3 { margin-top: 0; color: var(--accent); border-bottom: 2px solid var(--accent); display: inline-block; padding-bottom: 5px; }
-        .full { grid-column: span 2; }
-        .highlight { background: #fff5f6; border: 2px dashed var(--accent); }
+        :root {
+            --primary: #6366f1;
+            --bg: #f8fafc;
+            --card: #ffffff;
+            --text: #1e293b;
+            --text-light: #64748b;
+            --border: #e2e8f0;
+            --accent: #f1f5f9;
+        }
+
+        body {
+            font-family: 'Inter', sans-serif;
+            background-color: var(--bg);
+            color: var(--text);
+            line-height: 1.6;
+            margin: 0;
+            padding: 20px;
+        }
+
+        .container {
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        header {
+            text-align: center;
+            margin-bottom: 40px;
+            padding: 20px;
+        }
+
+        h1 {
+            color: var(--primary);
+            font-size: 2rem;
+            text-transform: uppercase;
+            letter-spacing: 1px;
+            margin-bottom: 10px;
+        }
+
+        .subtitle {
+            color: var(--text-light);
+            font-size: 1.1rem;
+        }
+
+        .info-inputs {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 20px;
+            margin-bottom: 40px;
+        }
+
+        .section-header {
+            background: var(--primary);
+            color: white;
+            padding: 15px 25px;
+            border-radius: 12px;
+            margin-top: 50px;
+            margin-bottom: 30px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+        }
+
+        .card {
+            background: var(--card);
+            border-radius: 16px;
+            padding: 25px;
+            margin-bottom: 25px;
+            border: 1px solid var(--border);
+            transition: transform 0.2s, box-shadow 0.2s;
+        }
+
+        .card:hover {
+            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+        }
+
+        label {
+            display: block;
+            font-weight: 600;
+            margin-bottom: 10px;
+            font-size: 1.1rem;
+        }
+
+        .examples {
+            background: var(--accent);
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 15px;
+            font-size: 0.9rem;
+            color: var(--text-light);
+            border-left: 4px solid var(--primary);
+        }
+
+        .examples ul {
+            margin: 5px 0 0 0;
+            padding-left: 20px;
+        }
+
+        textarea, input[type="text"] {
+            width: 100%;
+            padding: 15px;
+            border: 2px solid var(--border);
+            border-radius: 10px;
+            font-family: inherit;
+            font-size: 1rem;
+            box-sizing: border-box;
+            transition: all 0.3s ease;
+            background: #fff;
+        }
+
+        textarea:focus, input:focus {
+            outline: none;
+            border-color: var(--primary);
+            background: #fefeff;
+            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+        }
+
+        .category-title {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin: 30px 0 20px 0;
+            color: var(--primary);
+            font-weight: 700;
+            font-size: 1.3rem;
+            border-bottom: 2px solid var(--accent);
+            padding-bottom: 10px;
+        }
+
+        @media (max-width: 600px) {
+            .info-inputs {
+                grid-template-columns: 1fr;
+            }
+            h1 { font-size: 1.5rem; }
+        }
+
+        .print-btn {
+            display: block;
+            width: 100%;
+            padding: 15px;
+            background: var(--primary);
+            color: white;
+            border: none;
+            border-radius: 10px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            cursor: pointer;
+            margin-top: 40px;
+            transition: opacity 0.3s;
+        }
+
+        .print-btn:hover {
+            opacity: 0.9;
+        }
+
+        @media print {
+            .print-btn { display: none; }
+            body { background: white; padding: 0; }
+            .card { border: none; box-shadow: none; padding: 10px 0; }
+            .section-header { background: #eee; color: #000; border: 1px solid #ccc; }
+        }
     </style>
 </head>
 <body>
 
-<div class="container" id="formWrapper">
-    <h1>🧠 Diagnostic Deep Persona</h1>
-    <p class="subtitle">Analyse psychologique et comportementale pour conversion maximale.</p>
+<div class="container">
+    <header>
+        <h1>Stratégie Réseaux Sociaux</h1>
+        <p class="subtitle">Établissez les fondations de votre présence en ligne</p>
+    </header>
 
-    <form id="personaForm">
-        <div class="section">
-            <h2>01. Profil Socio-Comportemental</h2>
-            <div class="grid">
-                <div>
-                    <label>Nom de l'avatar</label>
-                    <input type="text" id="nom" placeholder="Ex: Marc, l'entrepreneur solo" required>
-                </div>
-                <div>
-                    <label>Niveau de conscience du problème</label>
-                    <select id="conscience">
-                        <option value="Inconscient">Inconscient (Ignore qu'il a un problème)</option>
-                        <option value="Conscient du problème">Conscient du problème (Cherche une solution)</option>
-                        <option value="Conscient de la solution">Conscient de la solution (Compare les offres)</option>
-                        <option value="Totalement conscient">Totalement conscient (Connaît votre marque)</option>
-                    </select>
-                </div>
-            </div>
+    <div class="info-inputs">
+        <div>
+            <label>Nom</label>
+            <input type="text" placeholder="Votre nom ou business">
         </div>
-
-        <div class="section">
-            <h2>02. Le "Pourquoi" Profond (Psychologie)</h2>
-            <label>Douleur émotionnelle aiguë</label>
-            <textarea id="douleur" rows="3" placeholder="Quelle émotion négative ressent-il chaque matin ?"></textarea>
-            
-            <label>Le désir caché (Statut social)</label>
-            <textarea id="desir" rows="3" placeholder="S'il réussit, comment veut-il être perçu par les autres ?"></textarea>
-        </div>
-
-        <div class="section">
-            <h2>03. Mécanismes de Vente</h2>
-            <label>Plus grosse objection à l'achat</label>
-            <input type="text" id="objection" placeholder="Ex: 'C'est trop cher', 'Ça ne marchera pas pour moi'...">
-            
-            <label>Le levier de persuasion principal</label>
-            <select id="levier">
-                <option value="Preuve Sociale">Preuve Sociale (Témoignages, chiffres)</option>
-                <option value="Autorité">Autorité (Expertise, diplômes, titres)</option>
-                <option value="Rareté/Urgence">Rareté / Urgence (Temps limité)</option>
-                <option value="Sympathie">Sympathie / Identification (Storytelling)</option>
-            </select>
-        </div>
-
-        <button type="button" onclick="generateDiagnostic()">Générer le Diagnostic Expert</button>
-    </form>
-</div>
-
-<div class="container" id="diagnosticCard">
-    <div class="identity-header">
-        <h2 id="res-nom" style="color: white; margin: 0; font-size: 2rem;">NOM AVATAR</h2>
-        <p id="res-conscience" style="opacity: 0.8;"></p>
-    </div>
-
-    <div class="analysis-grid">
-        <div class="analysis-box">
-            <h3>🔴 Le Point de Douleur</h3>
-            <p id="res-douleur"></p>
-        </div>
-        <div class="analysis-box">
-            <h3>🚀 L'Aspiration de Statut</h3>
-            <p id="res-desir"></p>
-        </div>
-        <div class="analysis-box">
-            <h3>🛡️ Objection Critique</h3>
-            <p id="res-objection"></p>
-        </div>
-        <div class="analysis-box">
-            <h3>⚡ Levier de Conversion</h3>
-            <p id="res-levier"></p>
-        </div>
-        <div class="analysis-box full highlight">
-            <h3>🎯 Angle d'Attaque Marketing</h3>
-            <p id="marketingAngle"></p>
+        <div>
+            <label>Date</label>
+            <input type="text" placeholder="JJ/MM/AAAA">
         </div>
     </div>
 
-    <button onclick="window.print()" style="margin-top: 30px;">Exporter le Diagnostic (PDF)</button>
-    <button onclick="location.reload()" style="background: #ccc; margin-top: 10px;">Modifier les données</button>
+    <div class="section-header">
+        <h2>⚙ PARTIE 1 — QUESTIONNAIRE STRATÉGIQUE</h2>
+    </div>
+    <p style="text-align: center; color: var(--text-light);">Objectif : Clarifier qui tu es, ce que tu proposes, et à qui tu t'adresses.</p>
+
+    <div class="category-title">🧭 TOI ET TON BUSINESS</div>
+
+    <div class="card">
+        <label>1. Qu'est-ce que tu veux accomplir avec ton business en ligne ?</label>
+        <div class="examples">
+            <em>Pourquoi fais-tu ça ? Qu'est-ce que tu veux apporter ?</em>
+            <ul>
+                <li>"Aider les gens à créer un revenu complémentaire en ligne"</li>
+                <li>"Montrer aux mamans qu'elles peuvent travailler de chez elles"</li>
+            </ul>
+        </div>
+        <textarea rows="3" placeholder="Tapez votre réponse ici..."></textarea>
+    </div>
+
+    <div class="card">
+        <label>2. Concrètement, qu'est-ce que ça change dans la vie de tes clients ?</label>
+        <div class="examples">
+            <em>Qu'est-ce qu'ils peuvent faire après, qu'ils ne pouvaient pas faire avant ?</em>
+        </div>
+        <textarea rows="3" placeholder="Tapez votre réponse ici..."></textarea>
+    </div>
+
+    <div class="card">
+        <label>3. Pourquoi toi et pas un autre ?</label>
+        <div class="examples">
+            <em>Ta crédibilité, ton parcours, ton unicité.</em>
+        </div>
+        <textarea rows="3" placeholder="Explique ce qui te rend légitime..."></textarea>
+    </div>
+
+    <div class="card">
+        <label>4. Raconte ton histoire en quelques lignes</label>
+        <div class="examples">
+            <em>D'où tu viens ? Le déclic ? Le changement ?</em>
+        </div>
+        <textarea rows="4" placeholder="Il était une fois..."></textarea>
+    </div>
+
+    <div class="card">
+        <label>5. Quelles sont tes valeurs ?</label>
+        <div class="examples">
+            Exemples : Honnêteté, liberté, famille, authenticité, transparence, ambition...
+        </div>
+        <textarea rows="2" placeholder="Tes valeurs non négociables..."></textarea>
+    </div>
+
+    <div class="card">
+        <label>6. Pourquoi tu fais ça vraiment ?</label>
+        <div class="examples">
+            <em>Ton moteur profond (le "Why"), ce qui te fait tenir.</em>
+        </div>
+        <textarea rows="3" placeholder="Ta motivation profonde..."></textarea>
+    </div>
+
+    <div class="category-title">🎯 LA PERSONNE QUE TU VEUX AIDER</div>
+
+    <div class="card">
+        <label>7. C'est qui la personne que tu veux aider en priorité ?</label>
+        <div class="examples">
+            <em>Âge, situation, besoins, désirs.</em>
+        </div>
+        <textarea rows="3" placeholder="Décris ton client idéal..."></textarea>
+    </div>
+
+    <div class="card">
+        <label>8. Qu'est-ce qui ne va pas dans sa vie en ce moment ?</label>
+        
+        <p><strong>💰 Côté argent :</strong></p>
+        <textarea rows="2" placeholder="Ses stress financiers..." style="margin-bottom: 15px;"></textarea>
+
+        <p><strong>🧠 Dans sa tête :</strong></p>
+        <textarea rows="2" placeholder="Ses doutes et ses peurs..." style="margin-bottom: 15px;"></textarea>
+
+        <p><strong>😓 Dans son quotidien :</strong></p>
+        <textarea rows="2" placeholder="Ses contraintes de temps, sa fatigue..."></textarea>
+    </div>
+
+    <div class="card">
+        <label>9. Qu'est-ce qu'elle rêve d'avoir dans sa vie ?</label>
+        <div class="examples">
+            <em>Ses aspirations profondes (temps, liberté, argent, reconnaissance).</em>
+        </div>
+        <textarea rows="3" placeholder="Ses rêves les plus fous..."></textarea>
+    </div>
+
+    <div class="card">
+        <label>10. À quel stade elle est quand elle te découvre ?</label>
+        <textarea rows="2" placeholder="Débutante totale ? Déjà lancée mais bloquée ?"></textarea>
+    </div>
+
+    <div class="card">
+        <label>11. Qu'est-ce qu'elle a déjà essayé avant ?</label>
+        <div class="examples">
+            <em>Et pourquoi ça n'a pas fonctionné selon elle ?</em>
+        </div>
+        <textarea rows="3" placeholder="Ses expériences passées..."></textarea>
+    </div>
+
+    <button class="print-btn" onclick="window.print()">Sauvegarder en PDF / Imprimer</button>
 </div>
-
-<script>
-    function generateDiagnostic() {
-        const fields = ['nom', 'conscience', 'douleur', 'desir', 'objection', 'levier'];
-        fields.forEach(f => {
-            document.getElementById('res-' + f).innerText = document.getElementById(f).value;
-        });
-
-        // Algorithme d'angle marketing simplifié
-        const levier = document.getElementById('levier').value;
-        const nom = document.getElementById('nom').value;
-        let angle = "";
-
-        if(levier === "Preuve Sociale") {
-            angle = `Pour convaincre ${nom}, vous devez noyer votre contenu de résultats clients. Il ne croit pas ce que VOUS dites, il croit ce que les AUTRES disent.`;
-        } else if(levier === "Autorité") {
-            angle = `L'approche pour ${nom} doit être technique et ultra-professionnelle. Montrez vos coulisses, vos diplômes et vos processus complexes.`;
-        } else {
-            angle = `Misez sur l'émotion et la transformation rapide. ${nom} a besoin de sentir que le changement est accessible maintenant.`;
-        }
-
-        document.getElementById('marketingAngle').innerText = angle;
-        document.getElementById('formWrapper').style.display = 'none';
-        document.getElementById('diagnosticCard').style.display = 'block';
-    }
-</script>
 
 </body>
 </html>
