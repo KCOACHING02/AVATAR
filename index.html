@@ -3,170 +3,161 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Diagnostic Persona - Business MRR</title>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
+    <title>Générateur de Client Idéal - MRR</title>
     <style>
         :root {
-            --primary: #4f46e5;
-            --bg: #fdfdff;
+            --primary: #6366f1;
+            --bg: #f8fafc;
             --card: #ffffff;
-            --text: #0f172a;
+            --text: #1e293b;
         }
-
-        body {
-            font-family: 'Outfit', sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            min-height: 100vh;
-            margin: 0;
-            padding: 20px;
-        }
-
-        #quiz-container {
-            background: var(--card);
-            padding: 2.5rem;
-            border-radius: 24px;
-            box-shadow: 0 20px 50px rgba(0,0,0,0.08);
-            max-width: 650px;
-            width: 100%;
-            text-align: center;
-        }
-
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background: var(--bg); color: var(--text); line-height: 1.6; padding: 20px; }
+        .container { max-width: 800px; margin: 0 auto; background: var(--card); padding: 40px; border-radius: 15px; box-shadow: 0 10px 25px rgba(0,0,0,0.05); }
+        h1, h2 { color: var(--primary); }
         .step { display: none; }
-        .step.active { display: block; animation: slideUp 0.4s ease-out; }
+        .step.active { display: block; }
+        .option-group { display: grid; gap: 10px; margin: 20px 0; }
+        .option { border: 2px solid #e2e8f0; padding: 15px; border-radius: 8px; cursor: pointer; transition: 0.3s; }
+        .option:hover { border-color: var(--primary); background: #f5f3ff; }
+        .option.selected { border-color: var(--primary); background: #e0e7ff; }
+        label { font-weight: bold; display: block; margin-top: 20px; }
+        textarea, input { width: 100%; padding: 12px; margin-top: 8px; border: 1px solid #cbd5e1; border-radius: 6px; box-sizing: border-box; font-size: 1rem; }
+        .btn { background: var(--primary); color: white; border: none; padding: 12px 25px; border-radius: 6px; cursor: pointer; font-size: 1rem; margin-top: 20px; transition: 0.3s; }
+        .btn:hover { opacity: 0.9; transform: translateY(-2px); }
+        
+        /* Loader styles */
+        #loader { display: none; text-align: center; padding: 50px 0; }
+        .spinner { width: 50px; height: 50px; border: 5px solid #f3f3f3; border-top: 5px solid var(--primary); border-radius: 50%; animation: spin 1s linear infinite; margin: 0 auto 20px; }
+        @keyframes spin { 0% { transform: rotate(0deg); } 100% { transform: rotate(360deg); } }
+        #loading-text { font-style: italic; color: #64748b; }
 
-        h2 { font-weight: 800; font-size: 1.6rem; color: var(--text); margin-bottom: 1.5rem; }
-        p.subtitle { color: #64748b; margin-bottom: 2rem; }
-
-        .options { display: grid; gap: 15px; }
-
-        button.choice-btn {
-            background: #fff;
-            border: 2px solid #f1f5f9;
-            padding: 1.2rem;
-            border-radius: 16px;
-            cursor: pointer;
-            text-align: left;
-            transition: all 0.2s;
-        }
-
-        button.choice-btn:hover {
-            border-color: var(--primary);
-            background: #f8faff;
-        }
-
-        .persona-card {
-            background: #f8fafc;
-            padding: 25px;
-            border-radius: 20px;
-            text-align: left;
-            margin-top: 20px;
-            border: 2px solid #e2e8f0;
-        }
-
-        .info-row { margin-bottom: 12px; }
-        .info-row strong { color: var(--primary); display: block; font-size: 0.8rem; text-transform: uppercase; }
-
-        .btn-main {
-            background: var(--primary);
-            color: white;
-            border: none;
-            padding: 1rem;
-            border-radius: 12px;
-            font-weight: 600;
-            cursor: pointer;
-            width: 100%;
-            margin-top: 15px;
-        }
-
-        @keyframes slideUp { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+        /* Final Result */
+        #result-card { background: #f1f5f9; border-left: 5px solid var(--primary); padding: 20px; margin-top: 20px; }
     </style>
 </head>
 <body>
 
-<div id="quiz-container">
-    <div class="step active" id="intro">
-        <h2>À qui vas-tu vraiment parler ? 🎯</h2>
-        <p class="subtitle">Découvre ton client idéal en 3 clics.</p>
-        <button class="btn-main" onclick="goTo('q1')">Démarrer le diagnostic</button>
-    </div>
-
-    <div class="step" id="q1">
-        <h2>Quel est son style de vie ?</h2>
-        <div class="options">
-            <button class="choice-btn" onclick="record('A', 'q2')"><b>28-45 ans :</b> Rythmé par les enfants, fatigue mentale, s'oublie un peu.</button>
-            <button class="choice-btn" onclick="record('B', 'q2')"><b>25-50 ans :</b> Métro-boulot-dodo. Journées 9h-17h, se sent comme un robot.</button>
-            <button class="choice-btn" onclick="record('C', 'q2')"><b>18-25 ans :</b> Vie en coloc ou chez les parents. Refuse le système classique.</button>
-            <button class="choice-btn" onclick="record('D', 'q2')"><b>30 ans+ :</b> En transition, fin de droits ou entre deux jobs.</button>
+<div class="container">
+    <div id="step1" class="step active">
+        <h1>ÉTAPE 1 — Qui est ton client idéal ?</h1>
+        <p>Coche celui qui te parle le plus :</p>
+        <div class="option-group" id="avatar-selection">
+            <div class="option" data-value="Le salarié frustré"><strong>Le salarié frustré</strong> : Veut un complément de revenu, rêve de quitter son job</div>
+            <div class="option" data-value="Le salarié épuisé"><strong>Le salarié épuisé</strong> : Cherche une solution pour travailler à son rythme, rêve de liberté</div>
+            <div class="option" data-value="La maman au foyer"><strong>La maman au foyer</strong> : Veut gagner de l’argent depuis chez elle, entre deux biberons</div>
+            <div class="option" data-value="Le demandeur d’emploi"><strong>Le demandeur d’emploi</strong> : Cherche une alternative, veut reprendre le contrôle</div>
+            <div class="option" data-value="L’étudiant/jeune diplômé"><strong>L’étudiant</strong> : Veut se créer des revenus sans patron, adepte de la liberté</div>
+            <div class="option" data-value="Futur entrepreneur"><strong>L’aspirant entrepreneur</strong> : Cherche un produit clé en main pour se lancer</div>
+            <div class="option" data-value="L’entrepreneur existant"><strong>L’entrepreneur</strong> : Veut ajouter une source de revenu automatisée</div>
         </div>
+        <button class="btn" onclick="nextStep(2)">Continuer →</button>
     </div>
 
-    <div class="step" id="q2">
-        <h2>Quel est son désir profond ?</h2>
-        <div class="options">
-            <button class="choice-btn" onclick="record('A', 'q3')">Voir ses enfants grandir et avoir son propre argent.</button>
-            <button class="choice-btn" onclick="record('B', 'q3')">Démissionner. Ne plus demander la permission pour ses vacances.</button>
-            <button class="choice-btn" onclick="record('C', 'q3')">Voyager et vivre de son téléphone (Digital Nomad).</button>
-            <button class="choice-btn" onclick="record('D', 'q3')">Payer ses factures sans stress et retrouver sa dignité.</button>
-        </div>
+    <div id="step2" class="step">
+        <h1>ÉTAPE 2 — Comprends sa réalité</h1>
+        <p>Remplis ça comme si tu décrivais un ami dans le besoin.</p>
+
+        <label>1. Où il en est aujourd'hui (Job, revenus, situation...) :</label>
+        <textarea id="situation" placeholder="Ex: Elle est maman au foyer, dépend financièrement de son conjoint..."></textarea>
+
+        <label>2. Son problème principal (Stress, factures, manque de temps...) :</label>
+        <textarea id="problem" placeholder="Ex: Elle ne peut pas se faire plaisir ni partir en vacances..."></textarea>
+
+        <label>3. Ce qu'il veut vraiment (Objectif financier, liberté...) :</label>
+        <textarea id="desire" placeholder="Ex: Gagner 500-1000€/mois pour arrêter de compter..."></textarea>
+
+        <label>4. Ce qui le bloque pour se lancer (Peurs, doutes...) :</label>
+        <textarea id="block" placeholder="Ex: Peur de l'échec et du jugement des autres..."></textarea>
+
+        <label>5. Pourquoi il achèterait cette formation MRR :</label>
+        <textarea id="why" placeholder="Ex: Parce que le produit est déjà prêt, il n'a qu'à le vendre..."></textarea>
+
+        <button class="btn" onclick="startAnalysis()">Générer ma fiche client →</button>
     </div>
 
-    <div class="step" id="q3">
-        <h2>Quelle est sa frustration / peur ?</h2>
-        <div class="options">
-            <button class="choice-btn" onclick="record('A', 'result')">Le manque de temps et la peur du jugement de l'entourage.</button>
-            <button class="choice-btn" onclick="record('B', 'result')">L'ennui mortel et la peur que son patron découvre son projet.</button>
-            <button class="choice-btn" onclick="record('C', 'result')">La peur de finir enfermé dans un bureau toute sa vie.</button>
-            <button class="choice-btn" onclick="record('D', 'result')">La complexité technique et la peur de perdre de l'argent.</button>
-        </div>
+    <div id="loader">
+        <div class="spinner"></div>
+        <h2 id="loading-header">Analyse des données en cours...</h2>
+        <p id="loading-text">Synchronisation avec les personas psychographiques...</p>
     </div>
 
-    <div class="step" id="result">
-        <h2>Ton Persona Idéal 🏆</h2>
-        <div id="persona-result"></div>
-        <button class="btn-main" onclick="location.reload()">Refaire le test</button>
+    <div id="step3" class="step">
+        <h1>ÉTAPE 3 — La fiche d’identité de ton client idéal</h1>
+        <div id="result-card">
+            </div>
+        <p style="margin-top:30px; font-weight:bold; color:green;">✅ BRAVO ! Tu connais maintenant ton client idéal sur le bout des doigts.</p>
+        <button class="btn" onclick="window.print()">Imprimer la fiche</button>
+        <button class="btn" style="background:#64748b" onclick="location.reload()">Recommencer</button>
     </div>
 </div>
 
 <script>
-    let scores = { A: 0, B: 0, C: 0, D: 0 };
+    let selectedAvatar = "";
 
-    function record(letter, next) {
-        scores[letter]++;
-        goTo(next);
-        if(next === 'result') showFinal();
-    }
+    // Gestion de la sélection des options
+    document.querySelectorAll('.option').forEach(opt => {
+        opt.addEventListener('click', function() {
+            document.querySelectorAll('.option').forEach(o => o.classList.remove('selected'));
+            this.classList.add('selected');
+            selectedAvatar = this.getAttribute('data-value');
+        });
+    });
 
-    function goTo(id) {
+    function nextStep(step) {
+        if (step === 2 && !selectedAvatar) {
+            alert("Veuillez sélectionner un profil d'abord.");
+            return;
+        }
         document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
-        document.getElementById(id).classList.add('active');
+        document.getElementById('step' + step).classList.add('active');
     }
 
-    function showFinal() {
-        const winner = Object.keys(scores).reduce((a, b) => scores[a] >= scores[b] ? a : b);
-        const res = document.getElementById('persona-result');
-        
-        const content = {
-            'A': { name: "La Maman 'Liberté'", age: "28-45 ans", lifestyle: "Focus famille, journées denses.", wants: "Indépendance financière & temps libre.", fear: "Le jugement des proches.", hook: "Parle-lui de revenus 'pendant la sieste'." },
-            'B': { name: "Le Salarié 'Évasion'", age: "25-50 ans", lifestyle: "Bureau 9h-17h, routine épuisante.", wants: "Quitter le salariat / Liberté totale.", fear: "Le regard du patron (veut rester anonyme).", hook: "Mise sur le Faceless Marketing." },
-            'C': { name: "L'Étudiant 'No-Limit'", age: "18-25 ans", lifestyle: "Connecté, mobile, refuse le costume.", wants: "Voyager et vivre du web.", fear: "La vie de bureau classique.", hook: "Parle de vitesse et de lifestyle nomade." },
-            'D': { name: "Le Profil 'Reconstruction'", age: "30 ans+", lifestyle: "En transition, cherche un nouveau départ.", wants: "Sécurité financière et dignité.", fear: "La technique et l'échec financier.", hook: "Rassure sur la simplicité du MRR." }
-        };
+    function startAnalysis() {
+        document.getElementById('step2').classList.remove('active');
+        document.getElementById('loader').style.display = 'block';
 
-        const p = content[winner];
-        res.innerHTML = `
-            <div class="persona-card">
-                <div class="info-row"><strong>NOM</strong> ${p.name}</div>
-                <div class="info-row"><strong>ÂGE</strong> ${p.age}</div>
-                <div class="info-row"><strong>STYLE DE VIE</strong> ${p.lifestyle}</div>
-                <div class="info-row"><strong>DÉSIR</strong> ${p.wants}</div>
-                <div class="info-row"><strong>PEUR</strong> ${p.fear}</div>
-                <div class="info-row"><strong>CONSEIL</strong> ${p.hook}</div>
-            </div>`;
+        const messages = [
+            "Analyse des points de douleur...",
+            "Calcul de l'indice de désirabilité...",
+            "Segmentation comportementale en cours...",
+            "Mapping des objections prioritaires...",
+            "Finalisation de la fiche d'identité..."
+        ];
+
+        let i = 0;
+        const interval = setInterval(() => {
+            if (i < messages.length) {
+                document.getElementById('loading-text').innerText = messages[i];
+                i++;
+            } else {
+                clearInterval(interval);
+                showResult();
+            }
+        }, 800);
+    }
+
+    function showResult() {
+        document.getElementById('loader').style.display = 'none';
+        document.getElementById('step3').classList.add('active');
+
+        const situation = document.getElementById('situation').value;
+        const problem = document.getElementById('problem').value;
+        const desire = document.getElementById('desire').value;
+        const why = document.getElementById('why').value;
+
+        const resultHTML = `
+            <h3>Profil : ${selectedAvatar}</h3>
+            <p><strong>Situation actuelle :</strong> ${situation}</p>
+            <p><strong>Douleur principale :</strong> ${problem}</p>
+            <p><strong>Objectif ultime :</strong> ${desire}</p>
+            <p><strong>Levier de conversion :</strong> ${why}</p>
+            <hr>
+            <p><em>"Mon client idéal est un(e) <strong>${selectedAvatar}</strong> qui vit la situation suivante : <strong>${situation}</strong>. Son plus gros problème est <strong>${problem}</strong>. Ce qu'il/elle veut vraiment, c'est <strong>${desire}</strong>, et il/elle choisira ma formation MRR car <strong>${why}</strong>."</em></p>
+        `;
+
+        document.getElementById('result-card').innerHTML = resultHTML;
     }
 </script>
+
 </body>
 </html>
