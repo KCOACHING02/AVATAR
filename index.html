@@ -53,6 +53,7 @@
             transition: all 0.2s;
             background: #fff;
             line-height: 1.4;
+            user-select: none;
         }
 
         .option-card:hover { border-color: var(--primary); background: #f8fafc; }
@@ -90,8 +91,9 @@
             line-height: 1.6;
             font-size: 1.1rem;
         }
-        .result-item { margin-bottom: 10px; border-bottom: 1px solid #e2e8f0; padding-bottom: 10px; }
-        .result-item b { color: var(--primary); display: block; font-size: 0.9rem; text-transform: uppercase; }
+        .result-item { margin-bottom: 15px; border-bottom: 1px solid #e2e8f0; padding-bottom: 10px; }
+        .result-item b { color: var(--primary); display: block; font-size: 0.9rem; text-transform: uppercase; margin-bottom: 5px; }
+        .tag { display: inline-block; background: #e0e7ff; color: #4338ca; padding: 2px 8px; border-radius: 4px; font-size: 0.85rem; margin-right: 5px; margin-bottom: 5px; }
     </style>
 </head>
 <body>
@@ -100,115 +102,115 @@
     
     <div id="step1" class="step active">
         <h1>ÉTAPE 1 — Qui est ton client idéal ?</h1>
-        <p class="subtitle">Coche celui qui te parle le plus :</p>
+        <p class="subtitle">Sélectionne un ou plusieurs profils :</p>
         <div class="option-list">
-            <div class="option-card" onclick="setVal('avatar', this, 'Le salarié frustré')">Le salarié frustré</div>
-            <div class="option-card" onclick="setVal('avatar', this, 'Le salarié épuisé')">Le salarié épuisé</div>
-            <div class="option-card" onclick="setVal('avatar', this, 'La maman au foyer')">La maman au foyer</div>
-            <div class="option-card" onclick="setVal('avatar', this, 'Le demandeur d’emploi')">Le demandeur d’emploi</div>
-            <div class="option-card" onclick="setVal('avatar', this, 'L’étudiant/jeune diplômé')">L’étudiant/jeune diplômé</div>
-            <div class="option-card" onclick="setVal('avatar', this, 'Celui qui veut devenir entrepreneur')">Celui qui veut devenir entrepreneur</div>
-            <div class="option-card" onclick="setVal('avatar', this, 'L’entrepreneur qui a déjà un business')">L’entrepreneur qui a déjà un business</div>
+            <div class="option-card" onclick="toggleVal('avatar', this, 'Le salarié frustré')">Le salarié frustré</div>
+            <div class="option-card" onclick="toggleVal('avatar', this, 'Le salarié épuisé')">Le salarié épuisé</div>
+            <div class="option-card" onclick="toggleVal('avatar', this, 'La maman au foyer')">La maman au foyer</div>
+            <div class="option-card" onclick="toggleVal('avatar', this, 'Le demandeur d’emploi')">Le demandeur d’emploi</div>
+            <div class="option-card" onclick="toggleVal('avatar', this, 'L’étudiant/jeune diplômé')">L’étudiant/jeune diplômé</div>
+            <div class="option-card" onclick="toggleVal('avatar', this, 'Celui qui veut devenir entrepreneur')">Celui qui veut devenir entrepreneur</div>
+            <div class="option-card" onclick="toggleVal('avatar', this, 'L’entrepreneur qui a déjà un business')">L’entrepreneur qui a déjà un business</div>
         </div>
         <button class="btn-nav" onclick="next(2)">Continuer →</button>
     </div>
 
     <div id="step2" class="step">
-        <h1>ÉTAPE 2 — Comprends sa réalité</h1>
+        <h1>ÉTAPE 2 — Sa réalité</h1>
         <h2>1. Où il en est aujourd’hui :</h2>
         <div class="option-list">
-            <div class="option-card" onclick="setVal('q1', this, 'Il a un job alimentaire, gagne 1500€/mois, pas épanoui')">Il a un job alimentaire, gagne 1500€/mois, pas épanoui</div>
-            <div class="option-card" onclick="setVal('q1', this, 'Elle est maman au foyer, dépend financièrement de son conjoint')">Elle est maman au foyer, dépend financièrement de son conjoint</div>
-            <div class="option-card" onclick="setVal('q1', this, 'Il est au chômage depuis 6 mois, touche 1200€ d’allocation')">Il est au chômage depuis 6 mois, touche 1200€ d’allocation</div>
-            <div class="option-card" onclick="setVal('q1', this, 'Elle travaille en grande surface, horaires décalés, fatiguée en permanence')">Elle travaille en grande surface, horaires décalés, fatiguée en permanence</div>
-            <div class="option-card" onclick="setVal('q1', this, 'Il est étudiant, fait des petits boulots pour payer son loyer')">Il est étudiant, fait des petits boulots pour payer son loyer</div>
-            <div class="option-card" onclick="setVal('q1', this, 'Elle a un CDI mais se sent prisonnière de sa routine métro-boulot-dodo')">Elle a un CDI mais se sent prisonnière de sa routine métro-boulot-dodo</div>
-            <div class="option-card" onclick="setVal('q1', this, 'Il est auto-entrepreneur mais galère à trouver des clients')">Il est auto-entrepreneur mais galère à trouver des clients</div>
+            <div class="option-card" onclick="toggleVal('q1', this, 'Il a un job alimentaire, gagne 1500€/mois, pas épanoui')">Il a un job alimentaire, gagne 1500€/mois, pas épanoui</div>
+            <div class="option-card" onclick="toggleVal('q1', this, 'Elle est maman au foyer, dépend financièrement de son conjoint')">Elle est maman au foyer, dépend financièrement de son conjoint</div>
+            <div class="option-card" onclick="toggleVal('q1', this, 'Il est au chômage depuis 6 mois, touche 1200€ d’allocation')">Il est au chômage depuis 6 mois, touche 1200€ d’allocation</div>
+            <div class="option-card" onclick="toggleVal('q1', this, 'Elle travaille en grande surface, horaires décalés, fatiguée en permanence')">Elle travaille en grande surface, horaires décalés, fatiguée en permanence</div>
+            <div class="option-card" onclick="toggleVal('q1', this, 'Il est étudiant, fait des petits boulots pour payer son loyer')">Il est étudiant, fait des petits boulots pour payer son loyer</div>
+            <div class="option-card" onclick="toggleVal('q1', this, 'Elle a un CDI mais se sent prisonnière de sa routine métro-boulot-dodo')">Elle a un CDI mais se sent prisonnière de sa routine métro-boulot-dodo</div>
+            <div class="option-card" onclick="toggleVal('q1', this, 'Il est auto-entrepreneur mais galère à trouver des clients')">Il est auto-entrepreneur mais galère à trouver des clients</div>
         </div>
         <button class="btn-nav" onclick="next(3)">Suivant (2/5) →</button>
     </div>
 
     <div id="step3" class="step">
-        <h1>ÉTAPE 2</h1>
+        <h1>ÉTAPE 2 — Sa réalité</h1>
         <h2>2. Son problème principal :</h2>
         <div class="option-list">
-            <div class="option-card" onclick="setVal('q2', this, 'Il n’a pas assez d’argent en fin de mois')">Il n’a pas assez d’argent en fin de mois</div>
-            <div class="option-card" onclick="setVal('q2', this, 'Il stresse à chaque facture qui tombe')">Il stresse à chaque facture qui tombe</div>
-            <div class="option-card" onclick="setVal('q2', this, 'Il veut plus de temps pour lui et sa famille')">Il veut plus de temps pour lui et sa famille</div>
-            <div class="option-card" onclick="setVal('q2', this, 'Il ne peut pas se faire plaisir ni partir en vacances')">Il ne peut pas se faire plaisir ni partir en vacances</div>
-            <div class="option-card" onclick="setVal('q2', this, 'Il veut utiliser les réseaux sociaux pour gagner de l’argent mais ne sait pas comment')">Il veut utiliser les réseaux sociaux pour gagner de l’argent mais ne sait pas comment</div>
-            <div class="option-card" onclick="setVal('q2', this, 'Il ne voit pas assez ses enfants à cause de son travail')">Il ne voit pas assez ses enfants à cause de son travail</div>
-            <div class="option-card" onclick="setVal('q2', this, 'Il est en plein burn-out, épuisé mentalement')">Il est en plein burn-out, épuisé mentalement</div>
-            <div class="option-card" onclick="setVal('q2', this, 'Il est au chômage et ne trouve pas de travail')">Il est au chômage et ne trouve pas de travail</div>
-            <div class="option-card" onclick="setVal('q2', this, 'Il veut sortir du salariat mais a peur de se lancer')">Il veut sortir du salariat mais a peur de se lancer</div>
-            <div class="option-card" onclick="setVal('q2', this, 'Il a honte de devoir compter chaque euro')">Il a honte de devoir compter chaque euro</div>
+            <div class="option-card" onclick="toggleVal('q2', this, 'Il n’a pas assez d’argent en fin de mois')">Il n’a pas assez d’argent en fin de mois</div>
+            <div class="option-card" onclick="toggleVal('q2', this, 'Il stresse à chaque facture qui tombe')">Il stresse à chaque facture qui tombe</div>
+            <div class="option-card" onclick="toggleVal('q2', this, 'Il veut plus de temps pour lui et sa famille')">Il veut plus de temps pour lui et sa famille</div>
+            <div class="option-card" onclick="toggleVal('q2', this, 'Il ne peut pas se faire plaisir ni partir en vacances')">Il ne peut pas se faire plaisir ni partir en vacances</div>
+            <div class="option-card" onclick="toggleVal('q2', this, 'Il veut utiliser les réseaux sociaux pour gagner de l’argent mais ne sait pas comment')">Il veut utiliser les réseaux sociaux pour gagner de l’argent mais ne sait pas comment</div>
+            <div class="option-card" onclick="toggleVal('q2', this, 'Il ne voit pas assez ses enfants à cause de son travail')">Il ne voit pas assez ses enfants à cause de son travail</div>
+            <div class="option-card" onclick="toggleVal('q2', this, 'Il est en plein burn-out, épuisé mentalement')">Il est en plein burn-out, épuisé mentalement</div>
+            <div class="option-card" onclick="toggleVal('q2', this, 'Il est au chômage et ne trouve pas de travail')">Il est au chômage et ne trouve pas de travail</div>
+            <div class="option-card" onclick="toggleVal('q2', this, 'Il veut sortir du salariat mais a peur de se lancer')">Il veut sortir du salariat mais a peur de se lancer</div>
+            <div class="option-card" onclick="toggleVal('q2', this, 'Il a honte de devoir compter chaque euro')">Il a honte de devoir compter chaque euro</div>
             <div class="option-card" onclick="setVal('q2', this, 'Il se sent coincé dans une vie qui ne lui ressemble pas')">Il se sent coincé dans une vie qui ne lui ressemble pas</div>
         </div>
         <button class="btn-nav" onclick="next(4)">Suivant (3/5) →</button>
     </div>
 
     <div id="step4" class="step">
-        <h1>ÉTAPE 2</h1>
+        <h1>ÉTAPE 2 — Sa réalité</h1>
         <h2>3. Ce qu’il veut vraiment :</h2>
         <div class="option-list">
-            <div class="option-card" onclick="setVal('q3', this, 'Gagner 500-1000€/mois en plus pour arrêter de compter')">Gagner 500-1000€/mois en plus pour arrêter de compter</div>
-            <div class="option-card" onclick="setVal('q3', this, 'Sortir du salariat et devenir son propre patron')">Sortir du salariat et devenir son propre patron</div>
-            <div class="option-card" onclick="setVal('q3', this, 'Apprendre de nouvelles compétences valorisantes')">Apprendre de nouvelles compétences valorisantes</div>
-            <div class="option-card" onclick="setVal('q3', this, 'Maîtriser les réseaux sociaux et en faire un outil de revenu')">Maîtriser les réseaux sociaux et en faire un outil de revenu</div>
-            <div class="option-card" onclick="setVal('q3', this, 'Lancer son propre business sans partir de zéro')">Lancer son propre business sans partir de zéro</div>
-            <div class="option-card" onclick="setVal('q3', this, 'Voyager quand il veut sans poser de congés')">Voyager quand il veut sans poser de congés</div>
-            <div class="option-card" onclick="setVal('q3', this, 'Devenir créateur de contenu et vivre de sa passion')">Devenir créateur de contenu et vivre de sa passion</div>
-            <div class="option-card" onclick="setVal('q3', this, 'Gâter ses enfants sans culpabiliser')">Gâter ses enfants sans culpabiliser</div>
-            <div class="option-card" onclick="setVal('q3', this, 'Avoir du temps libre pour ses hobbies')">Avoir du temps libre pour ses hobbies</div>
-            <div class="option-card" onclick="setVal('q3', this, 'Travailler d’où il veut (maison, café, plage…)')">Travailler d’où il veut (maison, café, plage…)</div>
-            <div class="option-card" onclick="setVal('q3', this, 'Se sentir fier de lui et légitime')">Se sentir fier de lui et légitime</div>
-            <div class="option-card" onclick="setVal('q3', this, 'Prouver qu’il peut réussir autrement')">Prouver qu’il peut réussir autrement</div>
-            <div class="option-card" onclick="setVal('q3', this, 'Avoir une vie plus simple et moins stressante')">Avoir une vie plus simple et moins stressante</div>
-            <div class="option-card" onclick="setVal('q3', this, 'Construire quelque chose qui lui appartient')">Construire quelque chose qui lui appartient</div>
+            <div class="option-card" onclick="toggleVal('q3', this, 'Gagner 500-1000€/mois en plus pour arrêter de compter')">Gagner 500-1000€/mois en plus pour arrêter de compter</div>
+            <div class="option-card" onclick="toggleVal('q3', this, 'Sortir du salariat et devenir son propre patron')">Sortir du salariat et devenir son propre patron</div>
+            <div class="option-card" onclick="toggleVal('q3', this, 'Apprendre de nouvelles compétences valorisantes')">Apprendre de nouvelles compétences valorisantes</div>
+            <div class="option-card" onclick="toggleVal('q3', this, 'Maîtriser les réseaux sociaux et en faire un outil de revenu')">Maîtriser les réseaux sociaux et en faire un outil de revenu</div>
+            <div class="option-card" onclick="toggleVal('q3', this, 'Lancer son propre business sans partir de zéro')">Lancer son propre business sans partir de zéro</div>
+            <div class="option-card" onclick="toggleVal('q3', this, 'Voyager quand il veut sans poser de congés')">Voyager quand il veut sans poser de congés</div>
+            <div class="option-card" onclick="toggleVal('q3', this, 'Devenir créateur de contenu et vivre de sa passion')">Devenir créateur de contenu et vivre de sa passion</div>
+            <div class="option-card" onclick="toggleVal('q3', this, 'Gâter ses enfants sans culpabiliser')">Gâter ses enfants sans culpabiliser</div>
+            <div class="option-card" onclick="toggleVal('q3', this, 'Avoir du temps libre pour ses hobbies')">Avoir du temps libre pour ses hobbies</div>
+            <div class="option-card" onclick="toggleVal('q3', this, 'Travailler d’où il veut (maison, café, plage…)')">Travailler d’où il veut (maison, café, plage…)</div>
+            <div class="option-card" onclick="toggleVal('q3', this, 'Se sentir fier de lui et légitime')">Se sentir fier de lui et légitime</div>
+            <div class="option-card" onclick="toggleVal('q3', this, 'Prouver qu’il peut réussir autrement')">Prouver qu’il peut réussir autrement</div>
+            <div class="option-card" onclick="toggleVal('q3', this, 'Avoir une vie plus simple et moins stressante')">Avoir une vie plus simple et moins stressante</div>
+            <div class="option-card" onclick="toggleVal('q3', this, 'Construire quelque chose qui lui appartient')">Construire quelque chose qui lui appartient</div>
         </div>
         <button class="btn-nav" onclick="next(5)">Suivant (4/5) →</button>
     </div>
 
     <div id="step5" class="step">
-        <h1>ÉTAPE 2</h1>
+        <h1>ÉTAPE 2 — Sa réalité</h1>
         <h2>4. Ce qui le bloque pour se lancer :</h2>
         <div class="option-list">
-            <div class="option-card" onclick="setVal('q4', this, 'Il ne sait pas par où commencer, trop d’infos partout')">Il ne sait pas par où commencer, trop d’infos partout</div>
-            <div class="option-card" onclick="setVal('q4', this, 'Peur de perdre son argent dans une arnaque')">Peur de perdre son argent dans une arnaque</div>
-            <div class="option-card" onclick="setVal('q4', this, 'Pas de compétences en marketing ou réseaux sociaux')">Pas de compétences en marketing ou réseaux sociaux</div>
-            <div class="option-card" onclick="setVal('q4', this, 'Il n’a pas d’idée de business')">Il n’a pas d’idée de business</div>
-            <div class="option-card" onclick="setVal('q4', this, 'Il n’y connaît rien au digital')">Il n’y connaît rien au digital</div>
-            <div class="option-card" onclick="setVal('q4', this, 'Il a peur de l’échec et du jugement des autres')">Il a peur de l’échec et du jugement des autres</div>
-            <div class="option-card" onclick="setVal('q4', this, 'Il manque de confiance en lui')">Il manque de confiance en lui</div>
-            <div class="option-card" onclick="setVal('q4', this, 'Il n’a pas le temps avec son job actuel')">Il n’a pas le temps avec son job actuel</div>
-            <div class="option-card" onclick="setVal('q4', this, 'Il pense que c’est trop compliqué pour lui')">Il pense que c’est trop compliqué pour lui</div>
-            <div class="option-card" onclick="setVal('q4', this, 'Il a déjà essayé des trucs qui n’ont pas marché')">Il a déjà essayé des trucs qui n’ont pas marché</div>
-            <div class="option-card" onclick="setVal('q4', this, 'Il croit qu’il faut être expert pour se lancer')">Il croit qu’il faut être expert pour se lancer</div>
-            <div class="option-card" onclick="setVal('q4', this, 'Il a peur de se faire arnaquer encore une fois')">Il a peur de se faire arnaquer encore une fois</div>
-            <div class="option-card" onclick="setVal('q4', this, 'Il ne sait pas créer de contenu ni faire de la vidéo')">Il ne sait pas créer de contenu ni faire de la vidéo</div>
-            <div class="option-card" onclick="setVal('q4', this, 'Il n’a personne pour le guider')">Il n’a personne pour le guider</div>
+            <div class="option-card" onclick="toggleVal('q4', this, 'Il ne sait pas par où commencer, trop d’infos partout')">Il ne sait pas par où commencer, trop d’infos partout</div>
+            <div class="option-card" onclick="toggleVal('q4', this, 'Peur de perdre son argent dans une arnaque')">Peur de perdre son argent dans une arnaque</div>
+            <div class="option-card" onclick="toggleVal('q4', this, 'Pas de compétences en marketing ou réseaux sociaux')">Pas de compétences en marketing ou réseaux sociaux</div>
+            <div class="option-card" onclick="toggleVal('q4', this, 'Il n’a pas d’idée de business')">Il n’a pas d’idée de business</div>
+            <div class="option-card" onclick="toggleVal('q4', this, 'Il n’y connaît rien au digital')">Il n’y connaît rien au digital</div>
+            <div class="option-card" onclick="toggleVal('q4', this, 'Il a peur de l’échec et du jugement des autres')">Il a peur de l’échec et du jugement des autres</div>
+            <div class="option-card" onclick="toggleVal('q4', this, 'Il manque de confiance en lui')">Il manque de confiance en lui</div>
+            <div class="option-card" onclick="toggleVal('q4', this, 'Il n’a pas le temps avec son job actuel')">Il n’a pas le temps avec son job actuel</div>
+            <div class="option-card" onclick="toggleVal('q4', this, 'Il pense que c’est trop compliqué pour lui')">Il pense que c’est trop compliqué pour lui</div>
+            <div class="option-card" onclick="toggleVal('q4', this, 'Il a déjà essayé des trucs qui n’ont pas marché')">Il a déjà essayé des trucs qui n’ont pas marché</div>
+            <div class="option-card" onclick="toggleVal('q4', this, 'Il croit qu’il faut être expert pour se lancer')">Il croit qu’il faut être expert pour se lancer</div>
+            <div class="option-card" onclick="toggleVal('q4', this, 'Il a peur de se faire arnaquer encore une fois')">Il a peur de se faire arnaquer encore une fois</div>
+            <div class="option-card" onclick="toggleVal('q4', this, 'Il ne sait pas créer de contenu ni faire de la vidéo')">Il ne sait pas créer de contenu ni faire de la vidéo</div>
+            <div class="option-card" onclick="toggleVal('q4', this, 'Il n’a personne pour le guider')">Il n’a personne pour le guider</div>
         </div>
         <button class="btn-nav" onclick="next(6)">Suivant (5/5) →</button>
     </div>
 
     <div id="step6" class="step">
-        <h1>ÉTAPE 2</h1>
+        <h1>ÉTAPE 2 — Sa réalité</h1>
         <h2>5. Pourquoi il achèterait cette formation MRR :</h2>
         <div class="option-list">
-            <div class="option-card" onclick="setVal('q5', this, 'Parce que c’est clé en main, pas besoin de tout créer')">Parce que c’est clé en main, pas besoin de tout créer</div>
-            <div class="option-card" onclick="setVal('q5', this, 'Il n’a pas besoin de créer de contenu ni d’avoir des compétences techniques')">Il n’a pas besoin de créer de contenu ni d’avoir des compétences techniques</div>
-            <div class="option-card" onclick="setVal('q5', this, 'Parce que tu vas l’accompagner pas à pas')">Parce que tu vas l’accompagner pas à pas</div>
-            <div class="option-card" onclick="setVal('q5', this, 'Parce qu’il sent que c’est LA solution qu’il cherchait')">Parce qu’il sent que c’est LA solution qu’il cherchait</div>
-            <div class="option-card" onclick="setVal('q5', this, 'Parce qu’il n’en peut plus de sa situation actuelle')">Parce qu’il n’en peut plus de sa situation actuelle</div>
-            <div class="option-card" onclick="setVal('q5', this, 'Parce que le produit est déjà prêt, il n’a qu’à le vendre')">Parce que le produit est déjà prêt, il n’a qu’à le vendre</div>
-            <div class="option-card" onclick="setVal('q5', this, 'Parce qu’il peut commencer rapidement sans attendre des mois')">Parce qu’il peut commencer rapidement sans attendre des mois</div>
-            <div class="option-card" onclick="setVal('q5', this, 'Parce que d’autres débutants y arrivent, pourquoi pas lui ?')">Parce que d’autres débutants y arrivent, pourquoi pas lui ?</div>
-            <div class="option-card" onclick="setVal('q5', this, 'Parce qu’il a besoin d’un système simple et duplicable')">Parce qu’il a besoin d’un système simple et duplicable</div>
-            <div class="option-card" onclick="setVal('q5', this, 'Parce qu’il veut quelque chose de concret, pas juste de la théorie')">Parce qu’il veut quelque chose de concret, pas juste de la théorie</div>
-            <div class="option-card" onclick="setVal('q5', this, 'Parce qu’il peut le faire à son rythme, le soir après le travail')">Parce qu’il peut le faire à son rythme, le soir après le travail</div>
-            <div class="option-card" onclick="setVal('q5', this, 'Parce qu’il n’a pas besoin d’être visible ou de se montrer')">Parce qu’il n’a pas besoin d’être visible ou de se montrer</div>
-            <div class="option-card" onclick="setVal('q5', this, 'Parce que c’est une opportunité accessible sans diplôme')">Parce que c’est une opportunité accessible sans diplôme</div>
-            <div class="option-card" onclick="setVal('q5', this, 'Parce qu’il peut enfin agir au lieu de rester bloqué')">Parce qu’il peut enfin agir au lieu de rester bloqué</div>
+            <div class="option-card" onclick="toggleVal('q5', this, 'Parce que c’est clé en main, pas besoin de tout créer')">Parce que c’est clé en main, pas besoin de tout créer</div>
+            <div class="option-card" onclick="toggleVal('q5', this, 'Il n’a pas besoin de créer de contenu ni d’avoir des compétences techniques')">Il n’a pas besoin de créer de contenu ni d’avoir des compétences techniques</div>
+            <div class="option-card" onclick="toggleVal('q5', this, 'Parce que tu vas l’accompagner pas à pas')">Parce que tu vas l’accompagner pas à pas</div>
+            <div class="option-card" onclick="toggleVal('q5', this, 'Parce qu’il sent que c’est LA solution qu’il cherchait')">Parce qu’il sent que c’est LA solution qu’il cherchait</div>
+            <div class="option-card" onclick="toggleVal('q5', this, 'Parce qu’il n’en peut plus de sa situation actuelle')">Parce qu’il n’en peut plus de sa situation actuelle</div>
+            <div class="option-card" onclick="toggleVal('q5', this, 'Parce que le produit est déjà prêt, il n’a qu’à le vendre')">Parce que le produit est déjà prêt, il n’a qu’à le vendre</div>
+            <div class="option-card" onclick="toggleVal('q5', this, 'Parce qu’il peut commencer rapidement sans attendre des mois')">Parce qu’il peut commencer rapidement sans attendre des mois</div>
+            <div class="option-card" onclick="toggleVal('q5', this, 'Parce que d’autres débutants y arrivent, pourquoi pas lui ?')">Parce que d’autres débutants y arrivent, pourquoi pas lui ?</div>
+            <div class="option-card" onclick="toggleVal('q5', this, 'Parce qu’il a besoin d’un système simple et duplicable')">Parce qu’il a besoin d’un système simple et duplicable</div>
+            <div class="option-card" onclick="toggleVal('q5', this, 'Parce qu’il veut quelque chose de concret, pas juste de la théorie')">Parce qu’il veut quelque chose de concret, pas juste de la théorie</div>
+            <div class="option-card" onclick="toggleVal('q5', this, 'Parce qu’il peut le faire à son rythme, le soir après le travail')">Parce qu’il peut le faire à son rythme, le soir après le travail</div>
+            <div class="option-card" onclick="toggleVal('q5', this, 'Parce qu’il n’a pas besoin d’être visible ou de se montrer')">Parce qu’il n’a pas besoin d’être visible ou de se montrer</div>
+            <div class="option-card" onclick="toggleVal('q5', this, 'Parce que c’est une opportunité accessible sans diplôme')">Parce que c’est une opportunité accessible sans diplôme</div>
+            <div class="option-card" onclick="toggleVal('q5', this, 'Parce qu’il peut enfin agir au lieu de rester bloqué')">Parce qu’il peut enfin agir au lieu de rester bloqué</div>
         </div>
         <button class="btn-nav" onclick="runCalc()">Générer ma fiche client →</button>
     </div>
@@ -216,11 +218,11 @@
     <div id="loader-step" class="step">
         <div class="spinner"></div>
         <h2 id="load-msg">Analyse des données en cours...</h2>
-        <p>Traitement de votre profil idéal...</p>
+        <p>Croisement des variables de profilage...</p>
     </div>
 
     <div id="step-result" class="step">
-        <h1>TA FICHE D’IDENTITÉ</h1>
+        <h1>TA FICHE D’IDENTITÉ CLIENT</h1>
         <div id="result-box"></div>
         <div style="text-align: center; margin-top: 30px;">
             <p><b>BRAVO !</b> Tu connais maintenant ton client idéal sur le bout des doigts.</p>
@@ -230,12 +232,17 @@
 </div>
 
 <script>
-    let responses = { avatar: "", q1: "", q2: "", q3: "", q4: "", q5: "" };
+    // Utilisation de tableaux pour stocker plusieurs choix
+    let responses = { avatar: [], q1: [], q2: [], q3: [], q4: [], q5: [] };
 
-    function setVal(cat, el, val) {
-        el.parentElement.querySelectorAll('.option-card').forEach(c => c.classList.remove('selected'));
-        el.classList.add('selected');
-        responses[cat] = val;
+    function toggleVal(cat, el, val) {
+        if (el.classList.contains('selected')) {
+            el.classList.remove('selected');
+            responses[cat] = responses[cat].filter(item => item !== val);
+        } else {
+            el.classList.add('selected');
+            responses[cat].push(val);
+        }
     }
 
     function next(n) {
@@ -245,11 +252,10 @@
     }
 
     function runCalc() {
-        // Cache toutes les étapes et affiche le loader
         document.querySelectorAll('.step').forEach(s => s.classList.remove('active'));
         document.getElementById('loader-step').classList.add('active');
         
-        const msgs = ["Extraction des besoins...", "Analyse des freins...", "Ciblage stratégique...", "Finalisation..."];
+        const msgs = ["Extraction des données...", "Analyse des comportements...", "Ciblage psychologique...", "Génération du profil..."];
         let i = 0;
         const itv = setInterval(() => {
             if(i < msgs.length) {
@@ -262,19 +268,30 @@
         }, 800);
     }
 
+    function formatList(arr) {
+        if (arr.length === 0) return "<i>Non sélectionné</i>";
+        return arr.map(item => `<span class="tag">${item}</span>`).join('');
+    }
+
     function showFinal() {
         document.getElementById('loader-step').classList.remove('active');
         document.getElementById('step-result').classList.add('active');
         
         document.getElementById('result-box').innerHTML = `
-            <div class="result-item"><b>Avatar sélectionné :</b> ${responses.avatar || "Non spécifié"}</div>
-            <div class="result-item"><b>Situation actuelle :</b> ${responses.q1 || "Non spécifié"}</div>
-            <div class="result-item"><b>Son problème :</b> ${responses.q2 || "Non spécifié"}</div>
-            <div class="result-item"><b>Son désir profond :</b> ${responses.q3 || "Non spécifié"}</div>
-            <div class="result-item"><b>Ses blocages :</b> ${responses.q4 || "Non spécifié"}</div>
-            <div class="result-item"><b>Pourquoi achète-t-il MRR :</b> ${responses.q5 || "Non spécifié"}</div>
-            <div style="margin-top:20px; padding:15px; background:#fff; border-radius:8px; border:1px dashed var(--primary); font-style:italic;">
-                "Mon client idéal est : <b>${responses.avatar || "..."}</b>. Sa réalité est qu'aujourd'hui <b>${(responses.q1 || "...").toLowerCase()}</b>. Son problème majeur est qu'<b>${(responses.q2 || "...").toLowerCase()}</b>. Ce qu'il souhaite vraiment, c'est <b>${(responses.q3 || "...").toLowerCase()}</b>, mais il est freiné car <b>${(responses.q4 || "...").toLowerCase()}</b>. Il choisira cette formation <b>${(responses.q5 || "...").toLowerCase()}</b>."
+            <div class="result-item"><b>Avatars sélectionnés :</b> ${formatList(responses.avatar)}</div>
+            <div class="result-item"><b>Réalité actuelle :</b> ${formatList(responses.q1)}</div>
+            <div class="result-item"><b>Problèmes identifiés :</b> ${formatList(responses.q2)}</div>
+            <div class="result-item"><b>Désirs profonds :</b> ${formatList(responses.q3)}</div>
+            <div class="result-item"><b>Blocages à lever :</b> ${formatList(responses.q4)}</div>
+            <div class="result-item"><b>Arguments de vente MRR :</b> ${formatList(responses.q5)}</div>
+            
+            <div style="margin-top:20px; padding:15px; background:#fff; border-radius:8px; border:1px dashed var(--primary); font-size: 1rem;">
+                <b>Synthèse :</b><br>
+                Ton client idéal se définit par un mélange de <b>${responses.avatar.join(' / ') || '...'}</b>. 
+                Il est actuellement dans une situation de : <i>${responses.q1.join(', ') || '...'}</i>. 
+                Ses plus grandes souffrances sont : <i>${responses.q2.join(', ') || '...'}</i>. 
+                Il rêve de <i>${responses.q3.join(', ') || '...'}</i> mais se sent bloqué par <i>${responses.q4.join(', ') || '...'}</i>. 
+                Il achètera ta formation car <i>${responses.q5.join(', ') || '...'}</i>.
             </div>
         `;
     }
