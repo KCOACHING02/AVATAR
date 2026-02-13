@@ -3,113 +3,141 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Générateur d'Avatar Client</title>
+    <title>Diagnostic Expert Persona - Stratégie 2026</title>
     <style>
-        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; color: #333; line-height: 1.6; padding: 20px; }
-        .container { max-width: 800px; margin: auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
-        h1, h2 { color: #2c3e50; text-align: center; }
-        .section { margin-bottom: 25px; padding: 15px; border-left: 4px solid #3498db; background: #f9f9f9; }
-        label { display: block; margin-bottom: 5px; font-weight: bold; }
-        input, textarea, select { width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; font-size: 14px; }
-        button { display: block; width: 100%; padding: 15px; background: #27ae60; color: white; border: none; border-radius: 6px; font-size: 18px; cursor: pointer; transition: background 0.3s; }
-        button:hover { background: #219150; }
+        :root { --primary: #1a1a2e; --accent: #e94560; --bg: #f0f2f5; --text: #333; }
+        body { font-family: 'Inter', sans-serif; background: var(--bg); color: var(--text); padding: 40px 20px; }
+        .container { max-width: 900px; margin: auto; background: white; padding: 40px; border-radius: 20px; box-shadow: 0 10px 30px rgba(0,0,0,0.1); }
+        h1 { text-align: center; color: var(--primary); font-size: 2.2rem; margin-bottom: 10px; }
+        p.subtitle { text-align: center; color: #666; margin-bottom: 40px; }
+        .grid { display: grid; grid-template-columns: 1fr 1fr; gap: 25px; }
+        .section { margin-bottom: 35px; border-bottom: 1px solid #eee; padding-bottom: 20px; }
+        h2 { color: var(--accent); font-size: 1.2rem; text-transform: uppercase; letter-spacing: 1px; }
+        label { display: block; margin-bottom: 8px; font-weight: 600; font-size: 0.9rem; }
+        input, textarea, select { width: 100%; padding: 12px; border: 2px solid #e1e1e1; border-radius: 8px; transition: 0.3s; margin-bottom: 15px; font-family: inherit; }
+        input:focus, textarea:focus { border-color: var(--accent); outline: none; }
+        button { width: 100%; padding: 20px; background: var(--primary); color: white; border: none; border-radius: 10px; font-size: 1.1rem; font-weight: bold; cursor: pointer; transition: 0.3s; }
+        button:hover { background: var(--accent); transform: translateY(-2px); }
         
-        /* Style de la Carte Résultat */
-        #resultCard { display: none; margin-top: 30px; border: 2px solid #2c3e50; border-radius: 15px; overflow: hidden; background: white; }
-        .card-header { background: #2c3e50; color: white; padding: 20px; text-align: center; }
-        .card-body { padding: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
-        .card-item { background: #f1f8ff; padding: 10px; border-radius: 8px; }
-        .card-item strong { color: #2980b9; display: block; margin-bottom: 5px; }
-        .full-width { grid-column: span 2; }
-        @media (max-width: 600px) { .card-body { grid-template-columns: 1fr; } .full-width { grid-column: span 1; } }
+        /* Affichage de la Fiche Diagnostic */
+        #diagnosticCard { display: none; }
+        .identity-header { background: var(--primary); color: white; padding: 30px; border-radius: 15px; text-align: center; margin-bottom: 30px; }
+        .analysis-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .analysis-box { background: #fff; border: 1px solid #ddd; padding: 20px; border-radius: 10px; }
+        .analysis-box h3 { margin-top: 0; color: var(--accent); border-bottom: 2px solid var(--accent); display: inline-block; padding-bottom: 5px; }
+        .full { grid-column: span 2; }
+        .highlight { background: #fff5f6; border: 2px dashed var(--accent); }
     </style>
 </head>
 <body>
 
-<div class="container" id="formContainer">
-    <h1>🎯 Mon Avatar Client Idéal</h1>
-    <p style="text-align: center;">Remplissez les informations ci-dessous pour générer votre fiche persona.</p>
+<div class="container" id="formWrapper">
+    <h1>🧠 Diagnostic Deep Persona</h1>
+    <p class="subtitle">Analyse psychologique et comportementale pour conversion maximale.</p>
 
-    <form id="avatarForm">
+    <form id="personaForm">
         <div class="section">
-            <h2>👤 Identité</h2>
-            <label>Nom de l'avatar (ex: Julie la Créative)</label>
-            <input type="text" id="nom" placeholder="Comment s'appelle votre client type ?" required>
-            
-            <label>Âge / Tranche d'âge</label>
-            <input type="text" id="age" placeholder="Ex: 30-35 ans" required>
-            
-            <label>Profession</label>
-            <input type="text" id="job" placeholder="Que fait-il/elle dans la vie ?" required>
+            <h2>01. Profil Socio-Comportemental</h2>
+            <div class="grid">
+                <div>
+                    <label>Nom de l'avatar</label>
+                    <input type="text" id="nom" placeholder="Ex: Marc, l'entrepreneur solo" required>
+                </div>
+                <div>
+                    <label>Niveau de conscience du problème</label>
+                    <select id="conscience">
+                        <option value="Inconscient">Inconscient (Ignore qu'il a un problème)</option>
+                        <option value="Conscient du problème">Conscient du problème (Cherche une solution)</option>
+                        <option value="Conscient de la solution">Conscient de la solution (Compare les offres)</option>
+                        <option value="Totalement conscient">Totalement conscient (Connaît votre marque)</option>
+                    </select>
+                </div>
+            </div>
         </div>
 
         <div class="section">
-            <h2>🧠 Psychologie & Habitudes</h2>
-            <label>Réseau social favori</label>
-            <select id="reseau">
-                <option value="Instagram">Instagram</option>
-                <option value="LinkedIn">LinkedIn</option>
-                <option value="TikTok">TikTok</option>
-                <option value="Facebook">Facebook</option>
-                <option value="Pinterest">Pinterest</option>
+            <h2>02. Le "Pourquoi" Profond (Psychologie)</h2>
+            <label>Douleur émotionnelle aiguë</label>
+            <textarea id="douleur" rows="3" placeholder="Quelle émotion négative ressent-il chaque matin ?"></textarea>
+            
+            <label>Le désir caché (Statut social)</label>
+            <textarea id="desir" rows="3" placeholder="S'il réussit, comment veut-il être perçu par les autres ?"></textarea>
+        </div>
+
+        <div class="section">
+            <h2>03. Mécanismes de Vente</h2>
+            <label>Plus grosse objection à l'achat</label>
+            <input type="text" id="objection" placeholder="Ex: 'C'est trop cher', 'Ça ne marchera pas pour moi'...">
+            
+            <label>Le levier de persuasion principal</label>
+            <select id="levier">
+                <option value="Preuve Sociale">Preuve Sociale (Témoignages, chiffres)</option>
+                <option value="Autorité">Autorité (Expertise, diplômes, titres)</option>
+                <option value="Rareté/Urgence">Rareté / Urgence (Temps limité)</option>
+                <option value="Sympathie">Sympathie / Identification (Storytelling)</option>
             </select>
-            
-            <label>Sa plus grande peur / frustration</label>
-            <textarea id="peur" rows="2" placeholder="Qu'est-ce qui l'empêche de dormir ?"></textarea>
         </div>
 
-        <div class="section">
-            <h2>💡 Besoins & Solutions</h2>
-            <label>Son objectif principal</label>
-            <textarea id="objectif" rows="2" placeholder="Que veut-il/elle accomplir ?"></textarea>
-            
-            <label>Pourquoi choisirait-il votre produit ?</label>
-            <textarea id="pourquoi" rows="2" placeholder="Quel est votre bénéfice n°1 pour lui/elle ?"></textarea>
-        </div>
-
-        <button type="button" onclick="generateAvatar()">Générer ma Carte Persona ✨</button>
+        <button type="button" onclick="generateDiagnostic()">Générer le Diagnostic Expert</button>
     </form>
 </div>
 
-<div id="resultCard" class="container">
-    <div class="card-header">
-        <h2 id="res-nom" style="color: white; margin: 0;">Nom de l'Avatar</h2>
-        <p id="res-job" style="margin: 5px 0 0 0;">Profession</p>
+<div class="container" id="diagnosticCard">
+    <div class="identity-header">
+        <h2 id="res-nom" style="color: white; margin: 0; font-size: 2rem;">NOM AVATAR</h2>
+        <p id="res-conscience" style="opacity: 0.8;"></p>
     </div>
-    <div class="card-body">
-        <div class="card-item"><strong>🎂 Âge</strong><span id="res-age"></span></div>
-        <div class="card-item"><strong>📱 Canal Préféré</strong><span id="res-reseau"></span></div>
-        <div class="card-item full-width"><strong>😱 Frustration majeure</strong><p id="res-peur" style="margin:0;"></p></div>
-        <div class="card-item full-width"><strong>🏆 Objectif Ultime</strong><p id="res-objectif" style="margin:0;"></p></div>
-        <div class="card-item full-width" style="background: #e8f8f5; border: 1px dashed #27ae60;">
-            <strong>💎 Ma Solution Value</strong>
-            <p id="res-pourquoi" style="margin:0;"></p>
+
+    <div class="analysis-grid">
+        <div class="analysis-box">
+            <h3>🔴 Le Point de Douleur</h3>
+            <p id="res-douleur"></p>
+        </div>
+        <div class="analysis-box">
+            <h3>🚀 L'Aspiration de Statut</h3>
+            <p id="res-desir"></p>
+        </div>
+        <div class="analysis-box">
+            <h3>🛡️ Objection Critique</h3>
+            <p id="res-objection"></p>
+        </div>
+        <div class="analysis-box">
+            <h3>⚡ Levier de Conversion</h3>
+            <p id="res-levier"></p>
+        </div>
+        <div class="analysis-box full highlight">
+            <h3>🎯 Angle d'Attaque Marketing</h3>
+            <p id="marketingAngle"></p>
         </div>
     </div>
-    <button onclick="window.print()" style="background: #34495e; margin-top: 20px;">Imprimer ou Sauvegarder en PDF</button>
-    <button onclick="location.reload()" style="background: #95a5a6; margin-top: 10px;">Recommencer</button>
+
+    <button onclick="window.print()" style="margin-top: 30px;">Exporter le Diagnostic (PDF)</button>
+    <button onclick="location.reload()" style="background: #ccc; margin-top: 10px;">Modifier les données</button>
 </div>
 
 <script>
-    function generateAvatar() {
-        // Récupération des données
-        const fields = ['nom', 'age', 'job', 'reseau', 'peur', 'objectif', 'pourquoi'];
-        let isValid = true;
-
+    function generateDiagnostic() {
+        const fields = ['nom', 'conscience', 'douleur', 'desir', 'objection', 'levier'];
         fields.forEach(f => {
-            const val = document.getElementById(f).value;
-            if(!val) isValid = false;
-            document.getElementById('res-' + f).innerText = val;
+            document.getElementById('res-' + f).innerText = document.getElementById(f).value;
         });
 
-        if(!isValid) {
-            alert("Veuillez remplir tous les champs pour créer un avatar complet !");
-            return;
+        // Algorithme d'angle marketing simplifié
+        const levier = document.getElementById('levier').value;
+        const nom = document.getElementById('nom').value;
+        let angle = "";
+
+        if(levier === "Preuve Sociale") {
+            angle = `Pour convaincre ${nom}, vous devez noyer votre contenu de résultats clients. Il ne croit pas ce que VOUS dites, il croit ce que les AUTRES disent.`;
+        } else if(levier === "Autorité") {
+            angle = `L'approche pour ${nom} doit être technique et ultra-professionnelle. Montrez vos coulisses, vos diplômes et vos processus complexes.`;
+        } else {
+            angle = `Misez sur l'émotion et la transformation rapide. ${nom} a besoin de sentir que le changement est accessible maintenant.`;
         }
 
-        // Bascule de l'affichage
-        document.getElementById('formContainer').style.display = 'none';
-        document.getElementById('resultCard').style.display = 'block';
+        document.getElementById('marketingAngle').innerText = angle;
+        document.getElementById('formWrapper').style.display = 'none';
+        document.getElementById('diagnosticCard').style.display = 'block';
     }
 </script>
 
