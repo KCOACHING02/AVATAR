@@ -1,0 +1,117 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Générateur d'Avatar Client</title>
+    <style>
+        body { font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif; background-color: #f4f7f6; color: #333; line-height: 1.6; padding: 20px; }
+        .container { max-width: 800px; margin: auto; background: white; padding: 30px; border-radius: 12px; box-shadow: 0 4px 15px rgba(0,0,0,0.1); }
+        h1, h2 { color: #2c3e50; text-align: center; }
+        .section { margin-bottom: 25px; padding: 15px; border-left: 4px solid #3498db; background: #f9f9f9; }
+        label { display: block; margin-bottom: 5px; font-weight: bold; }
+        input, textarea, select { width: 100%; padding: 10px; margin-bottom: 15px; border: 1px solid #ddd; border-radius: 6px; box-sizing: border-box; font-size: 14px; }
+        button { display: block; width: 100%; padding: 15px; background: #27ae60; color: white; border: none; border-radius: 6px; font-size: 18px; cursor: pointer; transition: background 0.3s; }
+        button:hover { background: #219150; }
+        
+        /* Style de la Carte Résultat */
+        #resultCard { display: none; margin-top: 30px; border: 2px solid #2c3e50; border-radius: 15px; overflow: hidden; background: white; }
+        .card-header { background: #2c3e50; color: white; padding: 20px; text-align: center; }
+        .card-body { padding: 20px; display: grid; grid-template-columns: 1fr 1fr; gap: 20px; }
+        .card-item { background: #f1f8ff; padding: 10px; border-radius: 8px; }
+        .card-item strong { color: #2980b9; display: block; margin-bottom: 5px; }
+        .full-width { grid-column: span 2; }
+        @media (max-width: 600px) { .card-body { grid-template-columns: 1fr; } .full-width { grid-column: span 1; } }
+    </style>
+</head>
+<body>
+
+<div class="container" id="formContainer">
+    <h1>🎯 Mon Avatar Client Idéal</h1>
+    <p style="text-align: center;">Remplissez les informations ci-dessous pour générer votre fiche persona.</p>
+
+    <form id="avatarForm">
+        <div class="section">
+            <h2>👤 Identité</h2>
+            <label>Nom de l'avatar (ex: Julie la Créative)</label>
+            <input type="text" id="nom" placeholder="Comment s'appelle votre client type ?" required>
+            
+            <label>Âge / Tranche d'âge</label>
+            <input type="text" id="age" placeholder="Ex: 30-35 ans" required>
+            
+            <label>Profession</label>
+            <input type="text" id="job" placeholder="Que fait-il/elle dans la vie ?" required>
+        </div>
+
+        <div class="section">
+            <h2>🧠 Psychologie & Habitudes</h2>
+            <label>Réseau social favori</label>
+            <select id="reseau">
+                <option value="Instagram">Instagram</option>
+                <option value="LinkedIn">LinkedIn</option>
+                <option value="TikTok">TikTok</option>
+                <option value="Facebook">Facebook</option>
+                <option value="Pinterest">Pinterest</option>
+            </select>
+            
+            <label>Sa plus grande peur / frustration</label>
+            <textarea id="peur" rows="2" placeholder="Qu'est-ce qui l'empêche de dormir ?"></textarea>
+        </div>
+
+        <div class="section">
+            <h2>💡 Besoins & Solutions</h2>
+            <label>Son objectif principal</label>
+            <textarea id="objectif" rows="2" placeholder="Que veut-il/elle accomplir ?"></textarea>
+            
+            <label>Pourquoi choisirait-il votre produit ?</label>
+            <textarea id="pourquoi" rows="2" placeholder="Quel est votre bénéfice n°1 pour lui/elle ?"></textarea>
+        </div>
+
+        <button type="button" onclick="generateAvatar()">Générer ma Carte Persona ✨</button>
+    </form>
+</div>
+
+<div id="resultCard" class="container">
+    <div class="card-header">
+        <h2 id="res-nom" style="color: white; margin: 0;">Nom de l'Avatar</h2>
+        <p id="res-job" style="margin: 5px 0 0 0;">Profession</p>
+    </div>
+    <div class="card-body">
+        <div class="card-item"><strong>🎂 Âge</strong><span id="res-age"></span></div>
+        <div class="card-item"><strong>📱 Canal Préféré</strong><span id="res-reseau"></span></div>
+        <div class="card-item full-width"><strong>😱 Frustration majeure</strong><p id="res-peur" style="margin:0;"></p></div>
+        <div class="card-item full-width"><strong>🏆 Objectif Ultime</strong><p id="res-objectif" style="margin:0;"></p></div>
+        <div class="card-item full-width" style="background: #e8f8f5; border: 1px dashed #27ae60;">
+            <strong>💎 Ma Solution Value</strong>
+            <p id="res-pourquoi" style="margin:0;"></p>
+        </div>
+    </div>
+    <button onclick="window.print()" style="background: #34495e; margin-top: 20px;">Imprimer ou Sauvegarder en PDF</button>
+    <button onclick="location.reload()" style="background: #95a5a6; margin-top: 10px;">Recommencer</button>
+</div>
+
+<script>
+    function generateAvatar() {
+        // Récupération des données
+        const fields = ['nom', 'age', 'job', 'reseau', 'peur', 'objectif', 'pourquoi'];
+        let isValid = true;
+
+        fields.forEach(f => {
+            const val = document.getElementById(f).value;
+            if(!val) isValid = false;
+            document.getElementById('res-' + f).innerText = val;
+        });
+
+        if(!isValid) {
+            alert("Veuillez remplir tous les champs pour créer un avatar complet !");
+            return;
+        }
+
+        // Bascule de l'affichage
+        document.getElementById('formContainer').style.display = 'none';
+        document.getElementById('resultCard').style.display = 'block';
+    }
+</script>
+
+</body>
+</html>
