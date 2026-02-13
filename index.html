@@ -3,18 +3,19 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Trouve ton Persona - MRR Edition</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;800&display=swap" rel="stylesheet">
+    <title>Diagnostic Persona - Business MRR</title>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #6366f1;
-            --bg: #f8fafc;
+            --primary: #4f46e5;
+            --secondary: #818cf8;
+            --bg: #fdfdff;
             --card: #ffffff;
-            --text: #1e293b;
+            --text: #0f172a;
         }
 
         body {
-            font-family: 'Inter', sans-serif;
+            font-family: 'Outfit', sans-serif;
             background-color: var(--bg);
             color: var(--text);
             display: flex;
@@ -27,65 +28,80 @@
 
         #quiz-container {
             background: var(--card);
-            padding: 2rem;
-            border-radius: 20px;
-            box-shadow: 0 10px 25px rgba(0,0,0,0.05);
-            max-width: 600px;
+            padding: 2.5rem;
+            border-radius: 24px;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.08);
+            max-width: 650px;
             width: 100%;
             text-align: center;
+            border: 1px solid #f1f5f9;
         }
 
         .step { display: none; }
-        .step.active { display: block; animation: fadeIn 0.5s; }
+        .step.active { display: block; animation: slideUp 0.4s ease-out; }
 
-        h2 { font-weight: 800; color: var(--primary); margin-bottom: 1.5rem; }
-        p { line-height: 1.6; color: #64748b; }
+        h2 { font-weight: 800; font-size: 1.6rem; color: var(--text); margin-bottom: 1.5rem; line-height: 1.2; }
+        p.subtitle { color: #64748b; margin-bottom: 2rem; }
 
         .options {
             display: grid;
-            gap: 12px;
-            margin-top: 2rem;
+            gap: 15px;
         }
 
-        button {
+        button.choice-btn {
             background: #fff;
-            border: 2px solid #e2e8f0;
-            padding: 1rem;
-            border-radius: 12px;
+            border: 2px solid #f1f5f9;
+            padding: 1.2rem;
+            border-radius: 16px;
             cursor: pointer;
             font-size: 1rem;
-            font-weight: 600;
-            transition: all 0.2s;
+            font-weight: 500;
+            transition: all 0.2s ease;
             text-align: left;
+            display: flex;
+            flex-direction: column;
+            gap: 5px;
         }
 
-        button:hover {
+        button.choice-btn:hover {
             border-color: var(--primary);
-            background: #f5f3ff;
-            transform: translateY(-2px);
+            background: #f8faff;
+            transform: scale(1.02);
+        }
+
+        button.choice-btn span.label {
+            font-weight: 800;
+            color: var(--primary);
+            font-size: 0.85rem;
+            text-transform: uppercase;
         }
 
         .persona-card {
-            background: #f1f5f9;
-            padding: 20px;
-            border-radius: 15px;
+            background: #f8fafc;
+            padding: 25px;
+            border-radius: 20px;
             text-align: left;
             margin-top: 20px;
-            border-left: 5px solid var(--primary);
+            border: 2px solid #e2e8f0;
         }
 
-        .badge {
+        .info-row { margin-bottom: 15px; }
+        .info-row strong { color: var(--primary); display: block; font-size: 0.9rem; text-transform: uppercase; }
+
+        .btn-main {
             background: var(--primary);
             color: white;
-            padding: 4px 12px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            display: inline-block;
-            margin-bottom: 10px;
+            border: none;
+            padding: 1rem 2rem;
+            border-radius: 12px;
+            font-weight: 600;
+            cursor: pointer;
+            width: 100%;
+            margin-top: 10px;
         }
 
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(10px); }
+        @keyframes slideUp {
+            from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
     </style>
@@ -94,74 +110,58 @@
 
 <div id="quiz-container">
     <div class="step active" id="intro">
-        <h2>Trouve ton Persona 🎯</h2>
-        <p>Salut ! On va définir ensemble qui est ton client idéal pour ton business MRR. Réponds honnêtement, une question après l'autre.</p>
-        <div class="options">
-            <button onclick="nextStep('q1')">C'est parti ! 🚀</button>
-        </div>
+        <h2>À qui vas-tu vraiment parler ? 🎯</h2>
+        <p class="subtitle">En tant que "Grand Frère", je vais t'aider à définir ton client idéal pour que tes messages touchent en plein cœur.</p>
+        <button class="btn-main" onclick="nextStep('q1')">Démarrer le diagnostic</button>
     </div>
 
     <div class="step" id="q1">
-        <p>1/5</p>
-        <h2>Quelle frustration veux-tu résoudre ?</h2>
+        <h2>Quel est le style de vie de ton client ?</h2>
         <div class="options">
-            <button onclick="record('A', 'q2')">Le manque de temps pour les enfants</button>
-            <button onclick="record('B', 'q2')">L'ennui profond au bureau (9h-17h)</button>
-            <button onclick="record('C', 'q2')">Le système scolaire qui ne mène à rien</button>
-            <button onclick="record('D', 'q2')">Le compte bancaire dans le rouge</button>
+            <button class="choice-btn" onclick="record('A', 'q2')">
+                <span class="label">28-45 ans</span>
+                Rythmé par les enfants et les repas. Grosse fatigue mentale, s'oublie un peu.
+            </button>
+            <button class="choice-btn" onclick="record('B', 'q2')">
+                <span class="label">25-50 ans</span>
+                Métro-boulot-dodo. Journées de 9h-17h derrière un écran. Sentiment d'être un robot.
+            </button>
+            <button class="choice-btn" onclick="record('C', 'q2')">
+                <span class="label">18-25 ans</span>
+                Vie en coloc ou chez les parents. Ultra-connecté, refuse le costume-cravate.
+            </button>
+            <button class="choice-btn" onclick="record('D', 'q2')">
+                <span class="label">30 ans et +</span>
+                En transition, fin de droits ou entre deux jobs. Cherche une solution concrète.
+            </button>
         </div>
     </div>
 
     <div class="step" id="q2">
-        <p>2/5</p>
-        <h2>Quel est son "rêve ultime" ?</h2>
+        <h2>Que veut-il obtenir par dessus tout ?</h2>
         <div class="options">
-            <button onclick="record('A', 'q3')">Travailler pendant la sieste des petits</button>
-            <button onclick="record('B', 'q3')">Envoyer sa lettre de démission</button>
-            <button onclick="record('C', 'q3')">Voyager en sac à dos avec son téléphone</button>
-            <button onclick="record('D', 'q3')">Payer ses factures sans stress</button>
+            <button class="choice-btn" onclick="record('A', 'q3')">Voir ses enfants grandir et avoir son propre argent.</button>
+            <button class="choice-btn" onclick="record('B', 'q3')">Démissionner. Ne plus demander la permission pour ses vacances.</button>
+            <button class="choice-btn" onclick="record('C', 'q3')">Voyager en sac à dos et vivre de son téléphone.</button>
+            <button class="choice-btn" onclick="record('D', 'q3')">Payer ses factures sans stress et retrouver sa dignité.</button>
         </div>
     </div>
 
     <div class="step" id="q3">
-        <p>3/5</p>
-        <h2>Quel est son plus gros blocage ?</h2>
+        <h2>Quelle est sa plus grande frustration / peur ?</h2>
         <div class="options">
-            <button onclick="record('A', 'q4')">La peur que ça prenne trop de temps</button>
-            <button onclick="record('B', 'q4')">La peur que son patron le découvre</button>
-            <button onclick="record('C', 'q4')">La peur que ses parents jugent</button>
-            <button onclick="record('D', 'q4')">La peur que ce soit trop technique</button>
-        </div>
-    </div>
-
-    <div class="step" id="q4">
-        <p>4/5</p>
-        <h2>Son niveau de connaissance ?</h2>
-        <div class="options">
-            <button onclick="record('A', 'q5')">Débutante, cherche la simplicité</button>
-            <button onclick="record('B', 'q5')">Regarde des vidéos mais n'ose pas cliquer</button>
-            <button onclick="record('C', 'q5')">Connaît les réseaux, pas la monétisation</button>
-            <button onclick="record('D', 'q5')">Prêt à tout car n'a plus rien à perdre</button>
-        </div>
-    </div>
-
-    <div class="step" id="q5">
-        <p>5/5</p>
-        <h2>Combien de temps a-t-il par jour ?</h2>
-        <div class="options">
-            <button onclick="record('A', 'result')">1h à 2h (pendant les siestes)</button>
-            <button onclick="record('B', 'result')">2h le soir après le boulot</button>
-            <button onclick="record('C', 'result')">Tout son temps entre deux cours</button>
-            <button onclick="record('D', 'result')">8h par jour, il est à fond</button>
+            <button class="choice-btn" onclick="record('A', 'q4')">"Je n'ai pas de temps" et peur du jugement de l'entourage.</button>
+            <button class="choice-btn" onclick="record('B', 'q4')">L'ennui mortel et la peur que son patron découvre son projet.</button>
+            <button class="choice-btn" onclick="record('C', 'q4')">Peur de finir dans un bureau avec 5 semaines de congés par an.</button>
+            <button class="choice-btn" onclick="record('D', 'q4')">"C'est trop complexe" et peur de perdre le peu qu'il reste.</button>
         </div>
     </div>
 
     <div class="step" id="result">
-        <h2>Ton Persona Idéal est... 🏆</h2>
+        <h2>Fiche d'identité de ton client 🏆</h2>
         <div id="persona-result"></div>
-        <div class="options">
-            <button onclick="location.reload()">Recommencer le test 🔄</button>
-        </div>
+        <button class="btn-main" style="background:#10b981" onclick="copyResult()">Copier ma fiche persona</button>
+        <button class="btn-main" style="background:#94a3b8" onclick="location.reload()">Refaire le test</button>
     </div>
 </div>
 
@@ -185,52 +185,62 @@
         
         const data = {
             'A': {
-                title: "La Maman 'Liberté'",
-                age: "28 - 45 ans",
-                style: "Rythmé par les enfants, fatigue mentale élevée.",
-                wants: "Voir ses enfants grandir ET être indépendante financièrement.",
-                fear: "Échouer et être jugée par son entourage.",
-                advice: "Parle-lui de 'flexibilité' et de 'revenus passifs pendant la sieste'."
+                name: "La Maman 'Liberté'",
+                profile: "28-45 ans, parent au foyer ou à temps partiel.",
+                style: "Journées chargées, focus sur la famille, cherche un projet à elle.",
+                wants: "Indépendance financière sans sacrifier le temps avec ses enfants.",
+                pain: "S'oublier dans son rôle de maman, manque de temps réel.",
+                fear: "Échouer et que son entourage lui dise 'je te l'avais dit'.",
+                hook: "Apprends-lui à construire son empire pendant la sieste."
             },
             'B': {
-                title: "Le Salarié 'Évasion'",
-                age: "25 - 50 ans",
-                style: "Métro-boulot-dodo, assis 8h derrière un écran.",
-                wants: "Quitter son 9h-17h sans demander la permission.",
-                fear: "Le burn-out ou que son patron découvre son projet.",
-                advice: "Mise tout sur le 'Faceless Marketing' et l'anonymat."
+                name: "Le Salarié 'Évasion'",
+                profile: "25-50 ans, en CDI (9h-17h) mais n'en peut plus.",
+                style: "Bureau, réunions, fatigue des transports, rêve de liberté.",
+                wants: "Démissionner et reprendre le contrôle de son calendrier.",
+                pain: "Devoir demander la permission pour chaque jour de repos.",
+                fear: "Que son employeur découvre son business (besoin d'anonymat).",
+                hook: "Montre-lui comment créer un business Faceless (sans visage)."
             },
             'C': {
-                title: "L'Étudiant 'No-Limit'",
-                age: "18 - 25 ans",
-                style: "Vit chez les parents ou en coloc, ultra-connecté.",
-                wants: "Voyager et ne jamais entrer dans le système classique.",
-                fear: "Finir dans un bureau avec 5 semaines de congés par an.",
-                advice: "Parle-lui de 'vitesse', de 'lifestyle' et de revenus mobiles."
+                name: "L'Étudiant 'No-Limit'",
+                profile: "18-25 ans, rejette le salariat classique.",
+                style: "Digital native, vit sur les réseaux, veut voyager maintenant.",
+                wants: "Vivre du digital pour ne jamais avoir de patron.",
+                pain: "Sentir que ses études sont déconnectées de la réalité du web.",
+                fear: "Finir enfermé dans une boîte avec 5 semaines de congés par an.",
+                hook: "Parle-lui de vitesse, de lifestyle et de liberté géographique."
             },
             'D': {
-                title: "Le Profil 'Survie'",
-                age: "30 ans et +",
-                style: "En recherche d'emploi ou fin de droits.",
-                wants: "Payer ses factures et retrouver une dignité.",
-                fear: "L'échec de trop. Perdre le peu d'argent qu'il reste.",
-                advice: "Sois très rassurant, parle de la simplicité du MRR (produit déjà fait)."
+                name: "Le Profil 'Reconstruction'",
+                profile: "30+ ans, en recherche d'emploi ou transition difficile.",
+                style: "En quête de sens et de revenus rapides.",
+                wants: "Sortir de la précarité et retrouver une dignité financière.",
+                pain: "Le compte bancaire qui stresse chaque fin de mois.",
+                fear: "La complexité technique et le risque financier.",
+                hook: "Rassure-le sur la simplicité : le produit (MRR) est déjà prêt."
             }
         };
 
         const p = data[winner];
         display.innerHTML = `
-            <div class="persona-card">
-                <span class="badge">Portrait-Robot</span>
-                <h3>${p.title}</h3>
-                <p><strong>Âge :</strong> ${p.age}</p>
-                <p><strong>Style de vie :</strong> ${p.style}</p>
-                <p><strong>Ce qu'il veut :</strong> ${p.wants}</p>
-                <p><strong>Sa peur :</strong> ${p.fear}</p>
-                <hr>
-                <p><strong>Conseil Grand Frère :</strong> ${p.advice}</p>
+            <div class="persona-card" id="final-card">
+                <div class="info-row"><strong>NOM DU PERSONA</strong> ${p.name}</div>
+                <div class="info-row"><strong>ÂGE & PROFIL</strong> ${p.profile}</div>
+                <div class="info-row"><strong>STYLE DE VIE</strong> ${p.style}</div>
+                <div class="info-row"><strong>OBJECTIF ULTIME</strong> ${p.wants}</div>
+                <div class="info-row"><strong>FRUSTRATION</strong> ${p.pain}</div>
+                <div class="info-row"><strong>PEUR MAJEURE</strong> ${p.fear}</div>
+                <div class="info-row"><strong>CONSEIL DU GRAND FRÈRE</strong> ${p.hook}</div>
             </div>
         `;
+    }
+
+    function copyResult() {
+        const text = document.getElementById('final-card').innerText;
+        navigator.clipboard.writeText(text).then(() => {
+            alert("Fiche copiée ! Tu peux maintenant la coller dans tes notes.");
+        });
     }
 </script>
 
