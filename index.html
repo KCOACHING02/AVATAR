@@ -3,295 +3,205 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Stratégie Réseaux Sociaux - Questionnaire</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <title>Scanner Stratégique - Client Idéal</title>
+    <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;600;800&display=swap" rel="stylesheet">
     <style>
         :root {
-            --primary: #6366f1;
-            --bg: #f8fafc;
-            --card: #ffffff;
-            --text: #1e293b;
-            --text-light: #64748b;
+            --primary: #2563eb;
+            --accent: #f8fafc;
+            --text-main: #0f172a;
+            --text-muted: #64748b;
             --border: #e2e8f0;
-            --accent: #f1f5f9;
+            --shadow: rgba(0, 0, 0, 0.05);
         }
 
         body {
-            font-family: 'Inter', sans-serif;
-            background-color: var(--bg);
-            color: var(--text);
-            line-height: 1.6;
+            font-family: 'Plus Jakarta Sans', sans-serif;
+            background-color: #ffffff;
+            color: var(--text-main);
             margin: 0;
             padding: 20px;
+            line-height: 1.5;
         }
 
-        .container {
-            max-width: 800px;
+        .wrapper {
+            max-width: 750px;
             margin: 0 auto;
         }
 
         header {
-            text-align: center;
+            text-align: left;
             margin-bottom: 40px;
-            padding: 20px;
+            border-left: 5px solid var(--primary);
+            padding-left: 20px;
         }
 
         h1 {
-            color: var(--primary);
             font-size: 2rem;
+            font-weight: 800;
+            margin: 0;
             text-transform: uppercase;
-            letter-spacing: 1px;
-            margin-bottom: 10px;
+            letter-spacing: -1px;
         }
 
-        .subtitle {
-            color: var(--text-light);
+        .tagline {
+            color: var(--text-muted);
             font-size: 1.1rem;
         }
 
-        .info-inputs {
-            display: grid;
-            grid-template-columns: 1fr 1fr;
-            gap: 20px;
-            margin-bottom: 40px;
-        }
-
-        .section-header {
-            background: var(--primary);
-            color: white;
-            padding: 15px 25px;
-            border-radius: 12px;
-            margin-top: 50px;
-            margin-bottom: 30px;
+        .section-title {
             display: flex;
             align-items: center;
             gap: 10px;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1);
+            margin: 40px 0 20px;
+            font-size: 1.2rem;
+            font-weight: 800;
+            color: var(--primary);
         }
 
-        .card {
-            background: var(--card);
-            border-radius: 16px;
-            padding: 25px;
-            margin-bottom: 25px;
+        .q-card {
+            background: var(--accent);
             border: 1px solid var(--border);
-            transition: transform 0.2s, box-shadow 0.2s;
+            border-radius: 12px;
+            padding: 20px;
+            margin-bottom: 20px;
+            transition: all 0.2s ease-in-out;
+            cursor: pointer;
         }
 
-        .card:hover {
-            box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.05);
+        .q-card:focus-within {
+            background: #fff;
+            border-color: var(--primary);
+            box-shadow: 0 10px 15px -3px var(--shadow);
+            transform: translateY(-2px);
         }
 
         label {
             display: block;
             font-weight: 600;
-            margin-bottom: 10px;
-            font-size: 1.1rem;
+            margin-bottom: 12px;
+            font-size: 1.05rem;
         }
 
-        .examples {
-            background: var(--accent);
-            padding: 15px;
-            border-radius: 8px;
-            margin-bottom: 15px;
-            font-size: 0.9rem;
-            color: var(--text-light);
-            border-left: 4px solid var(--primary);
-        }
-
-        .examples ul {
-            margin: 5px 0 0 0;
-            padding-left: 20px;
-        }
-
-        textarea, input[type="text"] {
+        textarea {
             width: 100%;
-            padding: 15px;
-            border: 2px solid var(--border);
-            border-radius: 10px;
+            border: none;
+            background: transparent;
             font-family: inherit;
             font-size: 1rem;
-            box-sizing: border-box;
-            transition: all 0.3s ease;
-            background: #fff;
-        }
-
-        textarea:focus, input:focus {
+            color: var(--text-main);
+            resize: none;
             outline: none;
-            border-color: var(--primary);
-            background: #fefeff;
-            box-shadow: 0 0 0 4px rgba(99, 102, 241, 0.1);
+            padding: 0;
         }
 
-        .category-title {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            margin: 30px 0 20px 0;
-            color: var(--primary);
-            font-weight: 700;
-            font-size: 1.3rem;
-            border-bottom: 2px solid var(--accent);
-            padding-bottom: 10px;
+        textarea::placeholder {
+            color: #94a3b8;
+            font-style: italic;
         }
 
-        @media (max-width: 600px) {
-            .info-inputs {
-                grid-template-columns: 1fr;
-            }
-            h1 { font-size: 1.5rem; }
+        .footer-actions {
+            margin-top: 50px;
+            text-align: center;
+            padding-bottom: 50px;
         }
 
-        .print-btn {
-            display: block;
-            width: 100%;
-            padding: 15px;
-            background: var(--primary);
+        button {
+            background: var(--text-main);
             color: white;
             border: none;
-            border-radius: 10px;
-            font-size: 1.1rem;
+            padding: 15px 30px;
+            border-radius: 8px;
             font-weight: 600;
             cursor: pointer;
-            margin-top: 40px;
-            transition: opacity 0.3s;
+            font-size: 1rem;
+            transition: opacity 0.2s;
         }
 
-        .print-btn:hover {
+        button:hover {
             opacity: 0.9;
         }
 
         @media print {
-            .print-btn { display: none; }
-            body { background: white; padding: 0; }
-            .card { border: none; box-shadow: none; padding: 10px 0; }
-            .section-header { background: #eee; color: #000; border: 1px solid #ccc; }
+            button { display: none; }
+            .q-card { border: 1px solid #000; background: none; }
         }
     </style>
 </head>
 <body>
 
-<div class="container">
+<div class="wrapper">
     <header>
-        <h1>Stratégie Réseaux Sociaux</h1>
-        <p class="subtitle">Établissez les fondations de votre présence en ligne</p>
+        <h1>SCANNER STRATÉGIQUE</h1>
+        <p class="tagline">Ancrage personnel & Psychologie du client idéal</p>
     </header>
 
-    <div class="info-inputs">
-        <div>
-            <label>Nom</label>
-            <input type="text" placeholder="Votre nom ou business">
-        </div>
-        <div>
-            <label>Date</label>
-            <input type="text" placeholder="JJ/MM/AAAA">
-        </div>
+    <div class="section-title">🧠 PHASE 1 : TON ANCRAGE</div>
+    
+    <div class="q-card">
+        <label>1. Le "Plus jamais ça"</label>
+        <textarea rows="2" placeholder="Quelle situation précise de ton passé ne veux-tu plus JAMAIS revivre aujourd'hui ?"></textarea>
     </div>
 
-    <div class="section-header">
-        <h2>⚙ PARTIE 1 — QUESTIONNAIRE STRATÉGIQUE</h2>
-    </div>
-    <p style="text-align: center; color: var(--text-light);">Objectif : Clarifier qui tu es, ce que tu proposes, et à qui tu t'adresses.</p>
-
-    <div class="category-title">🧭 TOI ET TON BUSINESS</div>
-
-    <div class="card">
-        <label>1. Qu'est-ce que tu veux accomplir avec ton business en ligne ?</label>
-        <div class="examples">
-            <em>Pourquoi fais-tu ça ? Qu'est-ce que tu veux apporter ?</em>
-            <ul>
-                <li>"Aider les gens à créer un revenu complémentaire en ligne"</li>
-                <li>"Montrer aux mamans qu'elles peuvent travailler de chez elles"</li>
-            </ul>
-        </div>
-        <textarea rows="3" placeholder="Tapez votre réponse ici..."></textarea>
+    <div class="q-card">
+        <label>2. La transformation réelle</label>
+        <textarea rows="2" placeholder="Quelle est la toute première liberté (même petite) que tu as gagnée depuis ton lancement ?"></textarea>
     </div>
 
-    <div class="card">
-        <label>2. Concrètement, qu'est-ce que ça change dans la vie de tes clients ?</label>
-        <div class="examples">
-            <em>Qu'est-ce qu'ils peuvent faire après, qu'ils ne pouvaient pas faire avant ?</em>
-        </div>
-        <textarea rows="3" placeholder="Tapez votre réponse ici..."></textarea>
+    <div class="q-card">
+        <label>3. Le filtre d'énergie</label>
+        <textarea rows="2" placeholder="Quel profil te donne envie de te lever le matin, et lequel t'épuise d'avance ?"></textarea>
     </div>
 
-    <div class="card">
-        <label>3. Pourquoi toi et pas un autre ?</label>
-        <div class="examples">
-            <em>Ta crédibilité, ton parcours, ton unicité.</em>
-        </div>
-        <textarea rows="3" placeholder="Explique ce qui te rend légitime..."></textarea>
+    <div class="section-title">🎯 PHASE 2 : LA CIBLE PRIORITAIRE</div>
+
+    <div class="q-card">
+        <label>4. Le point de rupture</label>
+        <textarea rows="2" placeholder="L'événement précis dans sa journée qui lui fait dire : 'Stop, il me faut une issue' ?"></textarea>
     </div>
 
-    <div class="card">
-        <label>4. Raconte ton histoire en quelques lignes</label>
-        <div class="examples">
-            <em>D'où tu viens ? Le déclic ? Le changement ?</em>
-        </div>
-        <textarea rows="4" placeholder="Il était une fois..."></textarea>
+    <div class="q-card">
+        <label>5. Le conflit interne</label>
+        <textarea rows="2" placeholder="Quelle petite voix dans sa tête lui dit que 'ce n'est pas pour elle' quand elle voit tes posts ?"></textarea>
     </div>
 
-    <div class="card">
-        <label>5. Quelles sont tes valeurs ?</label>
-        <div class="examples">
-            Exemples : Honnêteté, liberté, famille, authenticité, transparence, ambition...
-        </div>
-        <textarea rows="2" placeholder="Tes valeurs non négociables..."></textarea>
+    <div class="q-card">
+        <label>6. L'échec passé</label>
+        <textarea rows="2" placeholder="Pourquoi le contenu gratuit qu'elle consomme déjà n'a pas suffi à l'aider ?"></textarea>
     </div>
 
-    <div class="card">
-        <label>6. Pourquoi tu fais ça vraiment ?</label>
-        <div class="examples">
-            <em>Ton moteur profond (le "Why"), ce qui te fait tenir.</em>
-        </div>
-        <textarea rows="3" placeholder="Ta motivation profonde..."></textarea>
+    <div class="section-title">🛑 PHASE 3 : LES BLOQUAGES PROFONDS</div>
+
+    <div class="q-card">
+        <label>7. La peur du regard</label>
+        <textarea rows="2" placeholder="De qui a-t-elle le plus peur de subir les moqueries si elle échoue ?"></textarea>
     </div>
 
-    <div class="category-title">🎯 LA PERSONNE QUE TU VEUX AIDER</div>
-
-    <div class="card">
-        <label>7. C'est qui la personne que tu veux aider en priorité ?</label>
-        <div class="examples">
-            <em>Âge, situation, besoins, désirs.</em>
-        </div>
-        <textarea rows="3" placeholder="Décris ton client idéal..."></textarea>
+    <div class="q-card">
+        <label>8. Le traumatisme de l'achat</label>
+        <textarea rows="2" placeholder="A-t-elle déjà été déçue par une formation ? Quelle est sa peur par rapport à TA méthode ?"></textarea>
     </div>
 
-    <div class="card">
-        <label>8. Qu'est-ce qui ne va pas dans sa vie en ce moment ?</label>
-        
-        <p><strong>💰 Côté argent :</strong></p>
-        <textarea rows="2" placeholder="Ses stress financiers..." style="margin-bottom: 15px;"></textarea>
-
-        <p><strong>🧠 Dans sa tête :</strong></p>
-        <textarea rows="2" placeholder="Ses doutes et ses peurs..." style="margin-bottom: 15px;"></textarea>
-
-        <p><strong>😓 Dans son quotidien :</strong></p>
-        <textarea rows="2" placeholder="Ses contraintes de temps, sa fatigue..."></textarea>
+    <div class="q-card">
+        <label>9. Le bénéfice de l'immobilisme</label>
+        <textarea rows="2" placeholder="Qu'est-ce qu'elle gagne (inconsciemment) à ne rien changer à sa vie actuelle ?"></textarea>
     </div>
 
-    <div class="card">
-        <label>9. Qu'est-ce qu'elle rêve d'avoir dans sa vie ?</label>
-        <div class="examples">
-            <em>Ses aspirations profondes (temps, liberté, argent, reconnaissance).</em>
-        </div>
-        <textarea rows="3" placeholder="Ses rêves les plus fous..."></textarea>
+    <div class="section-title">🚀 PHASE 4 : LE SCÉNARIO DU CHANGEMENT</div>
+
+    <div class="q-card">
+        <label>10. La projection noire</label>
+        <textarea rows="2" placeholder="Si elle ne fait rien maintenant, à quoi ressemble sa vie dans exactement 12 mois ?"></textarea>
     </div>
 
-    <div class="card">
-        <label>10. À quel stade elle est quand elle te découvre ?</label>
-        <textarea rows="2" placeholder="Débutante totale ? Déjà lancée mais bloquée ?"></textarea>
+    <div class="q-card">
+        <label>11. La première victoire</label>
+        <textarea rows="2" placeholder="Quel est le tout petit résultat immédiat qu'elle doit obtenir pour reprendre espoir ?"></textarea>
     </div>
 
-    <div class="card">
-        <label>11. Qu'est-ce qu'elle a déjà essayé avant ?</label>
-        <div class="examples">
-            <em>Et pourquoi ça n'a pas fonctionné selon elle ?</em>
-        </div>
-        <textarea rows="3" placeholder="Ses expériences passées..."></textarea>
+    <div class="footer-actions">
+        <button onclick="window.print()">Exporter mes réflexions (PDF)</button>
     </div>
-
-    <button class="print-btn" onclick="window.print()">Sauvegarder en PDF / Imprimer</button>
 </div>
 
 </body>
